@@ -7,10 +7,10 @@ using UnityEngine.InputSystem;
 
 public class Movement : MonoBehaviour
 {
-    [SerializeField] Vector2 movementVector;
-    Vector2 playerDirection;
+    [SerializeField] Vector3 movementVector;
+    Vector3 playerDirection;
     Rigidbody playerBody;
-    [SerializeField] int walkSpeed = 1000;
+    public int walkSpeed = 100;
 
     // Start is called before the first frame update
     void Start()
@@ -26,19 +26,19 @@ public class Movement : MonoBehaviour
 
     public void MovementDetected(InputAction.CallbackContext movementContextInformation)
     {
-        movementVector = movementContextInformation.ReadValue<Vector2>();
+        movementVector = movementContextInformation.ReadValue<Vector3>();
         Debug.Log("Movement vector is: " + movementVector.ToString());
         
     }
    
     void MovePlayer()
     {
-        if (movementVector == Vector2.zero) { return; }
+        if (movementVector == Vector3.zero) { return; }
 
         playerDirection = movementVector * walkSpeed * Time.fixedDeltaTime;
         Debug.Log("Player Direction is: " + playerDirection.ToString());
-        playerBody.velocity = playerDirection;
-
+        Debug.Log("=================");
+        playerBody.AddForce(playerDirection, ForceMode.VelocityChange);
     }
    
 }
