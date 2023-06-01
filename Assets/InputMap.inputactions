@@ -6,10 +6,28 @@
             "id": "f59fa533-20b4-4b5e-8450-aa461ca1d2aa",
             "actions": [
                 {
-                    "name": "Movement",
+                    "name": "Base Movement",
                     "type": "Value",
                     "id": "f8d9d07b-7155-46f0-a7e2-217c708fcc76",
-                    "expectedControlType": "Vector3",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Jump",
+                    "type": "Button",
+                    "id": "a7dc9a9d-b36e-4875-b708-de37e69f42e7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Underwater Bindings",
+                    "type": "Value",
+                    "id": "c65aaedd-38f4-483c-b5d6-360ab183ffad",
+                    "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -17,35 +35,35 @@
             ],
             "bindings": [
                 {
-                    "name": "3D Vector",
+                    "name": "2D Vector",
                     "id": "37cf09d2-aa79-44a5-8c91-3e1727a0dbec",
-                    "path": "3DVector(mode=1)",
+                    "path": "2DVector(mode=1)",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "Base Movement",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "Up",
                     "id": "a8c41bcb-46a7-4379-a48d-51c84b52947a",
-                    "path": "<Keyboard>/space",
+                    "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "Base Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "Down",
                     "id": "e0ef4aec-c4a2-4116-b2ea-b65891cb85a6",
-                    "path": "<Keyboard>/ctrl",
+                    "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "Base Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -56,7 +74,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "Base Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -67,29 +85,51 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "Base Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "Forward",
-                    "id": "d09d2ea1-5881-4d47-94d9-0e2cf9c8a890",
-                    "path": "<Keyboard>/w",
+                    "name": "",
+                    "id": "ded5fb33-8f68-411f-b2a9-98e63c7bd3b7",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "37fed6ef-4884-48dc-a975-4ed68c9b207c",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Underwater Bindings",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "d0dacafd-8ca4-4e6e-a8cd-98c44d708839",
+                    "path": "<Keyboard>/ctrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Underwater Bindings",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "Backward",
-                    "id": "078cc8a6-faa9-44db-8f59-00493cd7de1d",
-                    "path": "<Keyboard>/s",
+                    "name": "positive",
+                    "id": "ab4d3cf8-dca6-47e5-9a32-4ebb5d959140",
+                    "path": "<Keyboard>/b",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "Underwater Bindings",
                     "isComposite": false,
                     "isPartOfComposite": true
                 }

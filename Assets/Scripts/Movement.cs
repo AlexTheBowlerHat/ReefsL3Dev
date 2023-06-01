@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Movement : MonoBehaviour
 {
-    [SerializeField] Vector3 movementVector;
+    [SerializeField] 
+    Vector3 movementVector;
+    Vector2 contextMovementVector;
     Vector3 playerDirection;
     Rigidbody playerBody;
     public int walkSpeed = 100;
@@ -24,9 +27,11 @@ public class Movement : MonoBehaviour
         MovePlayer();
     }
 
-    public void MovementDetected(InputAction.CallbackContext movementContextInformation)
+    public void ReadInputValue(InputAction.CallbackContext movementContextInformation)
     {
-        movementVector = movementContextInformation.ReadValue<Vector3>();
+        Debug.Log(movementContextInformation);
+        contextMovementVector = movementContextInformation.ReadValue<Vector2>();
+        movementVector = new Vector3(contextMovementVector.x,0,contextMovementVector.y);
         Debug.Log("Movement vector is: " + movementVector.ToString());
         
     }
