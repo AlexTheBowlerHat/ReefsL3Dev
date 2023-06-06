@@ -16,6 +16,7 @@ public class Movement : MonoBehaviour
     bool isUnderwater;
     public int walkSpeed;
     public int jumpForce;
+    public LayerMask playerLayerMask;
 
     // Start is called before the first frame update
     void Start()
@@ -38,7 +39,7 @@ public class Movement : MonoBehaviour
         switch (actionTriggeredName)
         {
             case "Base Movement":
-                Debug.Log("movement");
+                //Debug.Log("movement");
                 Vector2 contextMovementVector = movementContextInformation.ReadValue<Vector2>();
                 movementVector = new Vector3(contextMovementVector.x,0,contextMovementVector.y);
 
@@ -47,11 +48,11 @@ public class Movement : MonoBehaviour
                 break;
 
             case "Jump":
-                if (movementContextInformation.canceled) return;
-                Debug.Log("jumpy jump");
-                bool groundCheck = Physics.CheckBox(playerCollider.bounds.center, 
-                new Vector3(playerCollider.bounds.center.x, playerCollider.bounds.min.y + -0.1f , playerCollider.bounds.center.z), 
-                quaternion.identity,0);
+                if (!movementContextInformation.performed) return;
+                //Debug.Log("jumpy jump");
+                bool groundCheck = Physics.CheckBox(new Vector3(0, playerCollider.bounds.min.y, 0), 
+                new Vector3(playerCollider.bounds.extents.x, playerCollider.bounds.extents.y / 2, playerCollider.bounds.extents.z), 
+                quaternion.identity,playerLayerMask,QueryTriggerInteraction.Ignore);
 
                 Debug.Log(groundCheck);
                 if (!groundCheck) return;
@@ -60,7 +61,7 @@ public class Movement : MonoBehaviour
 
             case "Underwater Bindings": 
                 if (!isUnderwater) return;
-                Debug.Log("underwater");
+                //Debug.Log("underwater");
                 float contextMovementFloat = movementContextInformation.ReadValue<float>();
                 movementVector = new Vector3(0, contextMovementFloat, 0);
                 MovePlayer();
@@ -83,7 +84,7 @@ public class Movement : MonoBehaviour
    
    private void OnDrawGizmos()
    {
-    Gizmos.DrawCube(playerCollider.bounds.center,
-    new Vector3(playerCollider.bounds.center.x, playerCollider.bounds.min.y + -0.1f , playerCollider.bounds.center.z));
+    Gizmos.DrawCube(new Vector3(0, playerCollider.bounds.min.y,0),
+     new Vector3(playerCollider.bounds.center.x, playerCollider.bounds.extents.y / 2, playerCollider.bounds.center.z));
    }
 }
