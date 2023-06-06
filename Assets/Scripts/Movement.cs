@@ -35,7 +35,7 @@ public class Movement : MonoBehaviour
     public void ReadInputValue(InputAction.CallbackContext movementContextInformation)
     {
         string actionTriggeredName = movementContextInformation.action.name;
-        Debug.Log(movementContextInformation.action);
+        //Debug.Log(movementContextInformation.action);
         switch (actionTriggeredName)
         {
             case "Base Movement":
@@ -49,12 +49,16 @@ public class Movement : MonoBehaviour
 
             case "Jump":
                 if (!movementContextInformation.performed) return;
-                //Debug.Log("jumpy jump");
-                bool groundCheck = Physics.CheckBox(new Vector3(0, playerCollider.bounds.min.y, 0), 
-                new Vector3(playerCollider.bounds.extents.x, playerCollider.bounds.extents.y / 2, playerCollider.bounds.extents.z), 
-                quaternion.identity,playerLayerMask,QueryTriggerInteraction.Ignore);
+                RaycastHit boxCastInfo;
+                bool groundCheck = Physics.BoxCast(center: new Vector3(0, playerCollider.bounds.min.y, 0),
+                    halfExtents: new Vector3(playerCollider.bounds.extents.x, playerCollider.bounds.extents.y / 2, playerCollider.bounds.extents.z),
+                    direction: -transform.up, hitInfo:out boxCastInfo, orientation:quaternion.identity, maxDistance: playerCollider.bounds.extents.y,
+                    layerMask:playerLayerMask, queryTriggerInteraction:QueryTriggerInteraction.Ignore);
+                
 
-                Debug.Log(groundCheck);
+                bool groundCheck = Physics.Raycast(transform.position, -transform.up, playerCollider.bounds.extents.y + 0.1f);
+                Debug.Log("Player is on the ground? :" + groundCheck.ToString());
+
                 if (!groundCheck) return;
                 playerBody.AddForce(transform.up * jumpForce, ForceMode.VelocityChange);
                 break;
@@ -81,10 +85,5 @@ public class Movement : MonoBehaviour
 
         playerBody.AddForce(playerDirection, ForceMode.VelocityChange);
     }
-   
-   private void OnDrawGizmos()
-   {
-    Gizmos.DrawCube(new Vector3(0, playerCollider.bounds.min.y,0),
-     new Vector3(playerCollider.bounds.center.x, playerCollider.bounds.extents.y / 2, playerCollider.bounds.center.z));
-   }
+
 }
