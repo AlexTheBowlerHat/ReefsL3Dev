@@ -1148,7 +1148,7 @@ GameObject:
   - component: {fileID: 897142189}
   - component: {fileID: 897142190}
   m_Layer: 0
-  m_Name: Water
+  m_Name: Ocean Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1231,6 +1231,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e31f809b4d3e1140a1385e389c317ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 2144208779}
+  oceanPlaneTransform: {fileID: 897142188}
+  globalVolume: {fileID: 832575517}
 --- !u!65 &897142190
 BoxCollider:
   m_ObjectHideFlags: 0
