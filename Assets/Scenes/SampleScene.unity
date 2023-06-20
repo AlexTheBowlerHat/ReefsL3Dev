@@ -1233,7 +1233,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 2144208779}
   oceanPlaneTransform: {fileID: 897142188}
-  globalVolume: {fileID: 832575517}
+  URPVolume: {fileID: 832575518}
 --- !u!65 &897142190
 BoxCollider:
   m_ObjectHideFlags: 0
