@@ -13,18 +13,8 @@ public class WaterPlayerDetection : MonoBehaviour
     Transform playerTransform;
     Collider playerCollider;
     
-
     public Transform oceanPlaneTransform;
-
-    public Volume URPVolume;
-    ArrayList effectList;
-
-    private ChannelMixer underwaterChannelMixer;
-    private LiftGammaGain underwaterLGG;
-    private WhiteBalance underwaterWB;
-    private DepthOfField underwaterDepthOfField;
-    private FilmGrain underwaterFilmGrain;
-    
+    public Volume waterVolume;
 
     // Start is called before the first frame update
     void Start()
@@ -32,43 +22,31 @@ public class WaterPlayerDetection : MonoBehaviour
         sceneCamera = Camera.main;
         playerCollider = player.GetComponent<Collider>();
         playerTransform = player.transform;
-
-        effectList = new ArrayList
-        {
-            URPVolume.profile.TryGet<ChannelMixer>(out underwaterChannelMixer),
-            URPVolume.profile.TryGet<LiftGammaGain>(out underwaterLGG),
-            URPVolume.profile.TryGet<WhiteBalance>(out underwaterWB),
-            URPVolume.profile.TryGet<DepthOfField>(out underwaterDepthOfField),
-            URPVolume.profile.TryGet<FilmGrain>(out underwaterFilmGrain)
-        };
-
-
-
         //I can't find a better way to do this so this will do!      
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator PlayerAndPlayerCameraPositionCheck(float playerPositionToCheckAgainst, float camPosToCheckAgainst)
     {
-        
-    }
-    private void EffectSwitcher()
-    {
-
+        while (playerTransform.position.y > playerPositionToCheckAgainst)
+        {
+            if (sceneCamera.transform.position.y < camPosToCheckAgainst) break;
+            yield return new WaitForSeconds(1);
+        }
+        yield break;
     }
 
     private void OnTriggerEnter (Collider otherCollider)
     {
-        if (!otherCollider == playerCollider ) return;
-        Vector3 cameraWorldSpacePosition = sceneCamera.ScreenToWorldPoint(new Vector3(Screen.width/2, Screen.height/2, sceneCamera.transform.position.z));
-
-        EffectSwitcher();
-
+        if (otherCollider != playerCollider) return;
+        StartCoroutine(PlayerAndPlayerCameraPositionCheck(-10f,0f));
         Debug.Log("oog");
-        underwaterChannelMixer.active = true;
-        foreach (var effect in effectList)
-        {
-            Debug.Log(effect.ToString());
-        }
+        waterVolume.enabled = true;
+    }
+
+    private void OnTriggerExit(Collider otherCollider)
+    {
+        if (otherCollider != playerCollider) return;
+        //StartCoroutine(PlayerAndPlayerCameraPositionCheck(-10f, 0f));
+        waterVolume.enabled = false;
     }
 }
