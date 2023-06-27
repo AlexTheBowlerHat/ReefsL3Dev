@@ -49,13 +49,6 @@ public class Movement : MonoBehaviour
 
             case "Jump":
                 if (!movementContextInformation.performed) return;
-                /*RaycastHit boxCastInfo;
-                bool groundCheck = Physics.BoxCast(center: new Vector3(0, playerCollider.bounds.min.y, 0),
-                    halfExtents: new Vector3(playerCollider.bounds.extents.x, playerCollider.bounds.extents.y / 2, playerCollider.bounds.extents.z),
-                    direction: -transform.up, hitInfo:out boxCastInfo, orientation:quaternion.identity, maxDistance: playerCollider.bounds.extents.y,
-                    layerMask:playerLayerMask, queryTriggerInteraction:QueryTriggerInteraction.Ignore);
-                */
-
                 bool groundCheck = Physics.Raycast(transform.position, -transform.up, playerCollider.bounds.extents.y + 0.1f);
                 Debug.Log("Player is on the ground? :" + groundCheck.ToString());
 
