@@ -49,10 +49,10 @@ public class Movement : MonoBehaviour
 
             case "Jump":
                 if (!movementContextInformation.performed) return;
-                bool groundCheck = Physics.Raycast(transform.position, -transform.up, playerCollider.bounds.extents.y + 0.1f);
-                Debug.Log("Player is on the ground? :" + groundCheck.ToString());
+                //bool groundCheck = Physics.Raycast(transform.position, -transform.up, playerCollider.bounds.extents.y + 0.1f);
+                //Debug.Log("Player is on the ground? :" + groundCheck.ToString());
 
-                if (!groundCheck) return;
+                //if (!groundCheck) return;
                 playerBody.AddForce(transform.up * jumpForce, ForceMode.VelocityChange);
                 break;
 

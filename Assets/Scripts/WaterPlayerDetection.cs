@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
@@ -15,6 +16,11 @@ public class WaterPlayerDetection : MonoBehaviour
     
     public Transform oceanPlaneTransform;
     public Volume waterVolume;
+    bool playerTouchingWater = true;
+    float loopDelay = 0.1f;
+
+    public PlayerInput playerInput;
+
 
     // Start is called before the first frame update
     void Start()
@@ -27,26 +33,40 @@ public class WaterPlayerDetection : MonoBehaviour
 
     IEnumerator PlayerAndPlayerCameraPositionCheck(float playerPositionToCheckAgainst, float camPosToCheckAgainst)
     {
+        //Checks player position
         while (playerTransform.position.y > playerPositionToCheckAgainst)
         {
-            if (sceneCamera.transform.position.y < camPosToCheckAgainst) break;
-            yield return new WaitForSeconds(1);
+            if (!playerTouchingWater) yield return null;
+            if (sceneCamera.transform.position.y < camPosToCheckAgainst || playerTransform.position.y < playerPositionToCheckAgainst) break;
+            yield return new WaitForSeconds(loopDelay);
         }
+        Debug.Log("oog, both cam and player under");
+        //Control change
+        playerInput.actions["Underwater Bindings"].Enable();
+        playerInput.actions["Jump"].Disable();
+        waterVolume.enabled = true;
         yield break;
+        
     }
 
     private void OnTriggerEnter (Collider otherCollider)
     {
-        if (otherCollider != playerCollider) return;
-        StartCoroutine(PlayerAndPlayerCameraPositionCheck(-10f,0f));
-        Debug.Log("oog");
-        waterVolume.enabled = true;
+        if (otherCollider != playerCollider || playerTransform.position.y < -1f) return;
+        StartCoroutine(PlayerAndPlayerCameraPositionCheck(-1f,0.4f));
+        Debug.Log("oog, player enter detected");
     }
 
     private void OnTriggerExit(Collider otherCollider)
     {
-        if (otherCollider != playerCollider) return;
+        Debug.Log("out oog detected");
+        if (otherCollider != playerCollider || playerTransform.position.y < oceanPlaneTransform.position.y) return;
+        Debug.Log("player properly above the water");
         //StartCoroutine(PlayerAndPlayerCameraPositionCheck(-10f, 0f));
+
+        playerTouchingWater = false;
+        playerInput.actions["Underwater Bindings"].Disable();
+        playerInput.actions["Jump"].Enable();
         waterVolume.enabled = false;
+        
     }
 }
