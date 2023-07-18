@@ -1284,6 +1284,7 @@ MonoBehaviour:
   oceanPlaneTransform: {fileID: 897142188}
   waterVolume: {fileID: 832575518}
   playerInput: {fileID: 2144208786}
+  movement: {fileID: 2144208787}
 --- !u!65 &897142190
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1727,6 +1728,7 @@ MonoBehaviour:
   oceanPlaneTransform: {fileID: 1426031247}
   waterVolume: {fileID: 832575518}
   playerInput: {fileID: 0}
+  movement: {fileID: 0}
 --- !u!65 &1426031244
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2680,6 +2682,7 @@ MonoBehaviour:
   playerBody: {fileID: 0}
   playerInput: {fileID: 0}
   playerCollider: {fileID: 2144208781}
+  isUnderwater: 0
   walkSpeed: 20
   jumpForce: 10
   playerLayerMask:

@@ -13,7 +13,7 @@ public class Movement : MonoBehaviour
     [SerializeField] Rigidbody playerBody;
     [SerializeField] PlayerInput playerInput;
     [SerializeField] Collider playerCollider;
-    bool isUnderwater;
+    public bool isUnderwater;
     public int walkSpeed;
     public int jumpForce;
     public LayerMask playerLayerMask;
@@ -29,7 +29,7 @@ public class Movement : MonoBehaviour
 
     void FixedUpdate()
     {
-        playerBody.AddForce(Physics.gravity,ForceMode.Acceleration);
+        //playerBody.AddForce(Physics.gravity,ForceMode.Acceleration);
         MovePlayer();
     }
     public void ReadInputValue(InputAction.CallbackContext movementContextInformation)
@@ -72,10 +72,9 @@ public class Movement : MonoBehaviour
    
     void MovePlayer()
     {
-        if (movementVector == Vector3.zero) return; 
-
+        if (movementVector == Vector3.zero) return;
+        Debug.Log(movementVector);
         playerDirection = movementVector * walkSpeed * Time.fixedDeltaTime;
-
         playerBody.AddForce(playerDirection, ForceMode.VelocityChange);
     }
 
