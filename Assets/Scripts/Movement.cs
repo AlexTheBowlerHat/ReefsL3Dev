@@ -40,8 +40,8 @@ public class Movement : MonoBehaviour
         {
             case "Base Movement":
                 //Debug.Log("movement");
-                Vector2 contextMovementVector = movementContextInformation.ReadValue<Vector2>();
-                movementVector = new Vector3(contextMovementVector.x,0,contextMovementVector.y);
+                Vector2 contextMovementVector2 = movementContextInformation.ReadValue<Vector2>();
+                movementVector = new Vector3(contextMovementVector2.x,0,contextMovementVector2.y);
 
                 //Debug.Log("Movement vector is: " + movementVector.ToString());
                 MovePlayer();
@@ -49,18 +49,18 @@ public class Movement : MonoBehaviour
 
             case "Jump":
                 if (!movementContextInformation.performed) return;
-                //bool groundCheck = Physics.Raycast(transform.position, -transform.up, playerCollider.bounds.extents.y + 0.1f);
-                //Debug.Log("Player is on the ground? :" + groundCheck.ToString());
+                bool groundCheck = Physics.Raycast(transform.position, -transform.up, playerCollider.bounds.extents.y + 0.1f);
+                Debug.Log("Player is on the ground? :" + groundCheck.ToString());
 
-                //if (!groundCheck) return;
+                if (!groundCheck) return;
                 playerBody.AddForce(transform.up * jumpForce, ForceMode.VelocityChange);
                 break;
 
-            case "Underwater Bindings": 
+            case "Swimming": 
                 if (!isUnderwater) return;
                 //Debug.Log("underwater");
-                float contextMovementFloat = movementContextInformation.ReadValue<float>();
-                movementVector = new Vector3(0, contextMovementFloat, 0);
+                Vector3 contextMovementVector3 = movementContextInformation.ReadValue<Vector3>();
+                movementVector = contextMovementVector3;
                 MovePlayer();
                 break;
 

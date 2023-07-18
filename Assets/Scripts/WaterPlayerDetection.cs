@@ -13,6 +13,7 @@ public class WaterPlayerDetection : MonoBehaviour
     public GameObject player;
     Transform playerTransform;
     Collider playerCollider;
+    Rigidbody playerRigidBody;
     
     public Transform oceanPlaneTransform;
     public Volume waterVolume;
@@ -29,6 +30,7 @@ public class WaterPlayerDetection : MonoBehaviour
         sceneCamera = Camera.main;
         playerCollider = player.GetComponent<Collider>();
         playerTransform = player.transform;
+        playerRigidBody = player.GetComponent<Rigidbody>();
         //I can't find a better way to do this so this will do!      
     }
 
@@ -43,10 +45,16 @@ public class WaterPlayerDetection : MonoBehaviour
         }
         Debug.Log("oog, both cam and player under");
         //Control change
+        /*
         playerInput.actions["Underwater Bindings"].Enable();
         playerInput.actions["Jump"].Disable();
+        */
+        playerInput.actions.FindActionMap("Player").Disable();
+        playerInput.actions.FindActionMap("UnderWater").Enable();
+
         waterVolume.enabled = true;
         movement.isUnderwater = true;
+        playerRigidBody.useGravity = false;
  
         yield break;
         
@@ -67,8 +75,13 @@ public class WaterPlayerDetection : MonoBehaviour
         //StartCoroutine(PlayerAndPlayerCameraPositionCheck(-10f, 0f));
 
         playerTouchingWater = false;
+        playerInput.defaultActionMap = "Player";
+        /*
         playerInput.actions["Underwater Bindings"].Disable();
         playerInput.actions["Jump"].Enable();
+        */
+        playerRigidBody.useGravity = true;
+
         waterVolume.enabled = false;
         
         movement.isUnderwater = false;

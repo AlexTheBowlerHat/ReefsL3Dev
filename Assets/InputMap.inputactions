@@ -22,22 +22,13 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "Underwater Bindings",
-                    "type": "Value",
-                    "id": "c65aaedd-38f4-483c-b5d6-360ab183ffad",
-                    "expectedControlType": "Axis",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
                 }
             ],
             "bindings": [
                 {
                     "name": "2D Vector",
                     "id": "37cf09d2-aa79-44a5-8c91-3e1727a0dbec",
-                    "path": "2DVector(mode=1)",
+                    "path": "2DVector",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -99,37 +90,98 @@
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
+                }
+            ]
+        },
+        {
+            "name": "UnderWater",
+            "id": "c80ed142-f99a-40c4-8df6-e168e7b04da1",
+            "actions": [
                 {
-                    "name": "1D Axis",
-                    "id": "37fed6ef-4884-48dc-a975-4ed68c9b207c",
-                    "path": "1DAxis",
+                    "name": "Swimming",
+                    "type": "Value",
+                    "id": "7177e76f-b20a-4445-b4b5-f0321ec31634",
+                    "expectedControlType": "Vector3",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "Swimming",
+                    "id": "2b43acc3-2c81-4fd4-900c-d9e949cad974",
+                    "path": "3DVector(mode=1)",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Underwater Bindings",
+                    "action": "Swimming",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "negative",
-                    "id": "d0dacafd-8ca4-4e6e-a8cd-98c44d708839",
-                    "path": "<Keyboard>/shift",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Underwater Bindings",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "ab4d3cf8-dca6-47e5-9a32-4ebb5d959140",
+                    "name": "up",
+                    "id": "a6ac9e80-049f-4736-8257-92f8237a1253",
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Underwater Bindings",
+                    "action": "Swimming",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "fef73eb3-6b64-443d-817a-a4264e5cd03c",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Swimming",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "231a10ed-bb27-4508-a1eb-5ea4bece11dc",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Swimming",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "4350093a-9eea-4b70-8a14-8e0dfcefaba4",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Swimming",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "forward",
+                    "id": "f94e9770-cd0f-4aed-8565-7bff82943b9c",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Swimming",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "backward",
+                    "id": "ab8d3f36-a050-484b-aea5-0831be9c7fcd",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Swimming",
                     "isComposite": false,
                     "isPartOfComposite": true
                 }
