@@ -75,11 +75,9 @@ public class WaterPlayerDetection : MonoBehaviour
         //StartCoroutine(PlayerAndPlayerCameraPositionCheck(-10f, 0f));
 
         playerTouchingWater = false;
-        playerInput.defaultActionMap = "Player";
-        /*
-        playerInput.actions["Underwater Bindings"].Disable();
-        playerInput.actions["Jump"].Enable();
-        */
+        playerInput.actions.FindActionMap("Player").Enable();
+        playerInput.actions.FindActionMap("UnderWater").Disable();
+
         playerRigidBody.useGravity = true;
 
         waterVolume.enabled = false;

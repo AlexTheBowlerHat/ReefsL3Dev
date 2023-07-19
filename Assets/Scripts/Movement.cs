@@ -23,7 +23,6 @@ public class Movement : MonoBehaviour
     {
         playerBody = gameObject.GetComponent<Rigidbody>();
         playerInput = GetComponent<PlayerInput>();
-        playerInput.actions["Underwater Bindings"].Disable();
         playerCollider = GetComponent<Collider>();
     }
 
