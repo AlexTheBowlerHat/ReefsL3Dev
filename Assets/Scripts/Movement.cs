@@ -54,17 +54,29 @@ public class Movement : MonoBehaviour
 
                 RaycastHit boxCastInfo;
                 //OH MY GOD IM A FOOL
+                float varMaxDist = 5;
+
                 bool groundCheck = Physics.BoxCast(center: new Vector3(playerCollider.transform.position.x, 
                     playerCollider.bounds.min.y, 
                     playerCollider.transform.position.z),
-                    halfExtents: new Vector3(playerCollider.bounds.extents.x, playerCollider.bounds.extents.y , playerCollider.bounds.extents.z),
+                    halfExtents: new Vector3(playerCollider.bounds.extents.x / 2, playerCollider.bounds.extents.y / 2 , playerCollider.bounds.extents.z / 2),
                     direction: -transform.up, 
                     hitInfo: out boxCastInfo, 
                     orientation: quaternion.identity, 
-                    maxDistance: playerCollider.bounds.extents.y,
+                    maxDistance: varMaxDist,
                     layerMask: playerLayerMask, 
                     queryTriggerInteraction: QueryTriggerInteraction.Ignore);
 
+                Debug.Log("Centre Position Is ->" + playerCollider.transform.position.x.ToString() +
+                    ", " + playerCollider.bounds.min.y.ToString() +
+                    ", " + playerCollider.transform.position.z.ToString());
+                Debug.Log("boxCast Collider is -> " + boxCastInfo.collider);
+                Debug.Log("boxCast Distance is ->" + boxCastInfo.distance);
+                Debug.Log("boxCast Point is ->" + boxCastInfo.point);
+                Debug.Log("boxCast rotation is -> "+ quaternion.identity);
+                Debug.Log("boxCast maxDistance is -> " + varMaxDist);
+
+                //======================================================================
                 Debug.Log("player bound min y is -> " + playerCollider.bounds.min.y + 
                     "// x half extents are half this -> " + playerCollider.bounds.extents.x.ToString() +
                     " // y half extents are ->" + playerCollider.bounds.extents.y.ToString() 
@@ -99,7 +111,9 @@ public class Movement : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawCube(new Vector3(0, playerCollider.bounds.min.y, 0),
-            new Vector3(playerCollider.bounds.extents.x /2, playerCollider.bounds.extents.y /2 , playerCollider.bounds.extents.z /2));
+        Gizmos.DrawCube(new Vector3(playerCollider.transform.position.x,
+                    playerCollider.bounds.min.y,
+                    playerCollider.transform.position.z),
+            new Vector3(playerCollider.bounds.extents.x, playerCollider.bounds.extents.y , playerCollider.bounds.extents.z));
     }
 }
