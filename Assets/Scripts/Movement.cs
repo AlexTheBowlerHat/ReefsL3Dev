@@ -48,7 +48,27 @@ public class Movement : MonoBehaviour
 
             case "Jump":
                 if (!movementContextInformation.performed) return;
-                bool groundCheck = Physics.Raycast(transform.position, -transform.up, playerCollider.bounds.extents.y + 0.1f);
+                //bool groundCheck = Physics.Raycast(transform.position, -transform.up, playerCollider.bounds.extents.y + 0.1f);
+                
+                Debug.Log("Extents IS: " + playerCollider.bounds.extents.y + 0.1f.ToString());
+
+                RaycastHit boxCastInfo;
+                //OH MY GOD IM A FOOL
+                bool groundCheck = Physics.BoxCast(center: new Vector3(playerCollider.transform.position.x, 
+                    playerCollider.bounds.min.y, 
+                    playerCollider.transform.position.z),
+                    halfExtents: new Vector3(playerCollider.bounds.extents.x, playerCollider.bounds.extents.y , playerCollider.bounds.extents.z),
+                    direction: -transform.up, 
+                    hitInfo: out boxCastInfo, 
+                    orientation: quaternion.identity, 
+                    maxDistance: playerCollider.bounds.extents.y,
+                    layerMask: playerLayerMask, 
+                    queryTriggerInteraction: QueryTriggerInteraction.Ignore);
+
+                Debug.Log("player bound min y is -> " + playerCollider.bounds.min.y + 
+                    "// x half extents are half this -> " + playerCollider.bounds.extents.x.ToString() +
+                    " // y half extents are ->" + playerCollider.bounds.extents.y.ToString() 
+                    + " // z half extents are -> " + playerCollider.bounds.extents.z.ToString());
                 Debug.Log("Player is on the ground? :" + groundCheck.ToString());
 
                 if (!groundCheck) return;
@@ -72,9 +92,14 @@ public class Movement : MonoBehaviour
     void MovePlayer()
     {
         if (movementVector == Vector3.zero) return;
-        Debug.Log(movementVector);
+        //Debug.Log(movementVector);
         playerDirection = movementVector * walkSpeed * Time.fixedDeltaTime;
         playerBody.AddForce(playerDirection, ForceMode.VelocityChange);
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawCube(new Vector3(0, playerCollider.bounds.min.y, 0),
+            new Vector3(playerCollider.bounds.extents.x /2, playerCollider.bounds.extents.y /2 , playerCollider.bounds.extents.z /2));
+    }
 }
