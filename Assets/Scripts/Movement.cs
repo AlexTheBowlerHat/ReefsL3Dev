@@ -49,38 +49,40 @@ public class Movement : MonoBehaviour
             case "Jump":
                 if (!movementContextInformation.performed) return;
                 //bool groundCheck = Physics.Raycast(transform.position, -transform.up, playerCollider.bounds.extents.y + 0.1f);
-                
-                Debug.Log("Extents IS: " + playerCollider.bounds.extents.y + 0.1f.ToString());
 
                 RaycastHit boxCastInfo;
-                //OH MY GOD IM A FOOL
-                float varMaxDist = 5;
+                float varMaxDist = 100;
+                Vector3 halfExtentsValues = new Vector3(playerCollider.bounds.extents.x / 2, 0.1f, playerCollider.bounds.extents.z / 2);
 
                 bool groundCheck = Physics.BoxCast(center: new Vector3(playerCollider.transform.position.x, 
-                    playerCollider.bounds.min.y, 
+                    playerCollider.bounds.max.y + 1f, 
                     playerCollider.transform.position.z),
-                    halfExtents: new Vector3(playerCollider.bounds.extents.x / 2, playerCollider.bounds.extents.y / 2 , playerCollider.bounds.extents.z / 2),
-                    direction: -transform.up, 
+                    halfExtents: halfExtentsValues,
+                    direction: -Vector3.up, 
                     hitInfo: out boxCastInfo, 
                     orientation: quaternion.identity, 
                     maxDistance: varMaxDist,
                     layerMask: playerLayerMask, 
                     queryTriggerInteraction: QueryTriggerInteraction.Ignore);
 
+                Debug.Log("Y Extents Is: " + playerCollider.bounds.extents.y + 0.1f.ToString());
                 Debug.Log("Centre Position Is ->" + playerCollider.transform.position.x.ToString() +
                     ", " + playerCollider.bounds.min.y.ToString() +
                     ", " + playerCollider.transform.position.z.ToString());
+                Debug.Log("Half Extents are ->" + halfExtentsValues);
                 Debug.Log("boxCast Collider is -> " + boxCastInfo.collider);
                 Debug.Log("boxCast Distance is ->" + boxCastInfo.distance);
                 Debug.Log("boxCast Point is ->" + boxCastInfo.point);
-                Debug.Log("boxCast rotation is -> "+ quaternion.identity);
+                Debug.Log("boxCast mask is -> " );
+                //Debug.Log("boxCast rotation is -> "+ quaternion.identity);
                 Debug.Log("boxCast maxDistance is -> " + varMaxDist);
 
                 //======================================================================
-                Debug.Log("player bound min y is -> " + playerCollider.bounds.min.y + 
+                /*Debug.Log("player bound min y is -> " + playerCollider.bounds.min.y + 
                     "// x half extents are half this -> " + playerCollider.bounds.extents.x.ToString() +
                     " // y half extents are ->" + playerCollider.bounds.extents.y.ToString() 
                     + " // z half extents are -> " + playerCollider.bounds.extents.z.ToString());
+                    */
                 Debug.Log("Player is on the ground? :" + groundCheck.ToString());
 
                 if (!groundCheck) return;
@@ -109,11 +111,52 @@ public class Movement : MonoBehaviour
         playerBody.AddForce(playerDirection, ForceMode.VelocityChange);
     }
 
+    //https://www.youtube.com/watch?v=CoTK39SZft8
+    //maybe its overlap
+    /*
     private void OnDrawGizmos()
     {
+        RaycastHit boxCastInfo;
+                //OH MY GOD IM A FOOL
+                float varMaxDist = 100;
+
+                bool groundCheck = Physics.BoxCast(center: new Vector3(playerCollider.transform.position.x, 
+                    playerCollider.bounds.min.y, 
+                    playerCollider.transform.position.z),
+                    halfExtents: new Vector3(playerCollider.bounds.extents.x / 2, 0.1f , playerCollider.bounds.extents.z / 2),
+                    direction: -transform.up, 
+                    hitInfo: out boxCastInfo, 
+                    orientation: quaternion.identity, 
+                    maxDistance: varMaxDist,
+                    layerMask: playerLayerMask, 
+                    queryTriggerInteraction: QueryTriggerInteraction.Ignore);
+        
+        if (boxCastInfo.collider)
+        {
+            Debug.Log("hit something boxcast");
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireCube(center: new Vector3(playerCollider.transform.position.x, 
+                    playerCollider.bounds.min.y, 
+                    playerCollider.transform.position.z),
+                    size: new Vector3(playerCollider.bounds.extents.x, playerCollider.bounds.extents.y, playerCollider.bounds.extents.z)
+                    );
+        }
+        else
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireCube(center: new Vector3(playerCollider.transform.position.x, 
+                playerCollider.bounds.min.y, 
+                playerCollider.transform.position.z),
+                size: new Vector3(playerCollider.bounds.extents.x, playerCollider.bounds.extents.y, playerCollider.bounds.extents.z)
+        );
+        }
+        /*
         Gizmos.DrawCube(new Vector3(playerCollider.transform.position.x,
                     playerCollider.bounds.min.y,
                     playerCollider.transform.position.z),
-            new Vector3(playerCollider.bounds.extents.x, playerCollider.bounds.extents.y , playerCollider.bounds.extents.z));
-    }
+            new Vector3(playerCollider.bounds.extents.x, playerCollider.bounds.extents.y , playerCollider.bounds.extents.z));\
+            
+            
+    }*/
+    
 }
