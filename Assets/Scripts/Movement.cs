@@ -16,7 +16,8 @@ public class Movement : MonoBehaviour
     public bool isUnderwater;
     public int walkSpeed;
     public int jumpForce;
-    public LayerMask playerLayerMask;
+    int playerLayerMaskInt = 3;
+    int playerLayerMask;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +25,7 @@ public class Movement : MonoBehaviour
         playerBody = gameObject.GetComponent<Rigidbody>();
         playerInput = GetComponent<PlayerInput>();
         playerCollider = GetComponent<Collider>();
+        playerLayerMask = 1 << playerLayerMaskInt;
     }
 
     void FixedUpdate()
@@ -73,7 +75,6 @@ public class Movement : MonoBehaviour
                 Debug.Log("boxCast Collider is -> " + boxCastInfo.collider);
                 Debug.Log("boxCast Distance is ->" + boxCastInfo.distance);
                 Debug.Log("boxCast Point is ->" + boxCastInfo.point);
-                Debug.Log("boxCast mask is -> " );
                 //Debug.Log("boxCast rotation is -> "+ quaternion.identity);
                 Debug.Log("boxCast maxDistance is -> " + varMaxDist);
 
@@ -84,6 +85,7 @@ public class Movement : MonoBehaviour
                     + " // z half extents are -> " + playerCollider.bounds.extents.z.ToString());
                     */
                 Debug.Log("Player is on the ground? :" + groundCheck.ToString());
+                Debug.Log("========================");
 
                 if (!groundCheck) return;
                 playerBody.AddForce(transform.up * jumpForce, ForceMode.VelocityChange);
