@@ -16,8 +16,7 @@ public class Movement : MonoBehaviour
     public bool isUnderwater;
     public int walkSpeed;
     public int jumpForce;
-    int playerLayerMaskInt = 3;
-    int playerLayerMask;
+    int boxCastLayerMask = 3;
 
     public GameObject floor;
 
@@ -27,7 +26,6 @@ public class Movement : MonoBehaviour
         playerBody = gameObject.GetComponent<Rigidbody>();
         playerInput = GetComponent<PlayerInput>();
         playerCollider = GetComponent<Collider>();
-        playerLayerMask = 1 << playerLayerMaskInt;
     }
 
     void FixedUpdate()
@@ -54,21 +52,9 @@ public class Movement : MonoBehaviour
                 if (!movementContextInformation.performed) return;
                 //bool groundCheck = Physics.Raycast(transform.position, -transform.up, playerCollider.bounds.extents.y + 0.1f);
 
-                //RaycastHit boxCastInfo;
-                float varMaxDist = playerCollider.bounds.max.y + 0.2f;
+                float varMaxDist = playerCollider.bounds.max.y - playerCollider.bounds.min.y + 0.2f;
                 Vector3 halfExtentsValues = new Vector3(playerCollider.bounds.extents.x / 2, 0.1f, playerCollider.bounds.extents.z / 2);
-                /*
-                bool groundCheck = Physics.BoxCast(center: new Vector3(playerCollider.transform.position.x, 
-                    playerCollider.bounds.max.y + 1f, 
-                    playerCollider.transform.position.z),
-                    halfExtents: halfExtentsValues,
-                    direction: -Vector3.up, 
-                    hitInfo: out boxCastInfo, 
-                    orientation: quaternion.identity, 
-                    maxDistance: varMaxDist,
-                    layerMask: playerLayerMask, 
-                    queryTriggerInteraction: QueryTriggerInteraction.Ignore);
-                */
+
                 RaycastHit[] boxCastHits = Physics.BoxCastAll(center: new Vector3(playerCollider.transform.position.x,
                     playerCollider.bounds.max.y + 0.1f,
                     playerCollider.transform.position.z),
@@ -76,12 +62,8 @@ public class Movement : MonoBehaviour
                     direction: -Vector3.up,
                     orientation: quaternion.identity,
                     maxDistance: varMaxDist,
-                    layerMask: playerLayerMask,
+                    layerMask: boxCastLayerMask,
                     queryTriggerInteraction: QueryTriggerInteraction.Ignore) ;
-
-                Debug.Log(playerCollider.bounds.min.y);
-                Debug.Log("Collider bounds max is ->" + (playerCollider.bounds.max.y + 0.2f).ToString());
-                Debug.Log(floor.transform.position.y);
 
                // if (!groundCheck) return;
                foreach (RaycastHit hit in boxCastHits)
@@ -91,32 +73,10 @@ public class Movement : MonoBehaviour
                     {
                         Debug.Log("ground woo");
                         playerBody.AddForce(transform.up * jumpForce, ForceMode.VelocityChange);
+                        break;
                     }
                 }
-                Debug.Log("========================");
                 break;
-
-                
-                //========================================
-                /*
-                Debug.Log("Y Extents Is: " + playerCollider.bounds.extents.y + 0.1f.ToString());
-                Debug.Log("Centre Position Is ->" + playerCollider.transform.position.x.ToString() +
-                    ", " + playerCollider.bounds.min.y.ToString() +
-                    ", " + playerCollider.transform.position.z.ToString());
-                Debug.Log("Half Extents are ->" + halfExtentsValues);
-                Debug.Log("boxCast Collider is -> " + boxCastInfo.collider);
-                Debug.Log("boxCast Distance is ->" + boxCastInfo.distance);
-                Debug.Log("boxCast Point is ->" + boxCastInfo.point);
-                //Debug.Log("boxCast rotation is -> "+ quaternion.identity);
-                Debug.Log("boxCast maxDistance is -> " + varMaxDist);
-                */
-                //======================================================================
-                /*Debug.Log("player bound min y is -> " + playerCollider.bounds.min.y + 
-                    "// x half extents are half this -> " + playerCollider.bounds.extents.x.ToString() +
-                    " // y half extents are ->" + playerCollider.bounds.extents.y.ToString() 
-                    + " // z half extents are -> " + playerCollider.bounds.extents.z.ToString());
-                    */
-                //Debug.Log("Player is on the ground? :" + groundCheck.ToString());
                 
             case "Swimming": 
                 if (!isUnderwater) return;

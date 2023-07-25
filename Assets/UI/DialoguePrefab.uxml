@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/DialogueStyle.uss?fileID=7433441132597879392&amp;guid=b4c304e07b226334ba66289612696fc3&amp;type=3#DialogueStyle" />
+    <ui:VisualElement name="Background" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); justify-content: space-between; flex-direction: column-reverse; align-items: stretch;">
+        <ui:VisualElement name="VisualElement" style="flex-grow: 1; background-color: rgba(195, 40, 40, 0); width: 100%; height: 1%; flex-direction: column-reverse;">
+            <ui:Label tabindex="-1" text="Label" display-tooltip-when-elided="true" name="Label" style="background-color: rgba(0, 0, 0, 0); align-items: center; flex-direction: column-reverse; -unity-text-align: upper-center; background-image: none;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
