@@ -26,12 +26,40 @@ public class Movement : MonoBehaviour
         playerBody = gameObject.GetComponent<Rigidbody>();
         playerInput = GetComponent<PlayerInput>();
         playerCollider = GetComponent<Collider>();
+        playerInput.actions.FindActionMap("UnderWater").Disable();
     }
 
     void FixedUpdate()
     {
         //playerBody.AddForce(Physics.gravity,ForceMode.Acceleration);
         MovePlayer();
+    }
+    RaycastHit[] JumpBoxCastCheck()
+    {
+        float varMaxDist = playerCollider.bounds.max.y - playerCollider.bounds.min.y + 0.2f;
+        Vector3 halfExtentsValues = new Vector3(playerCollider.bounds.extents.x / 2, 0.1f, playerCollider.bounds.extents.z / 2);
+
+        RaycastHit[] boxCastHits = Physics.BoxCastAll(center: new Vector3(playerCollider.transform.position.x,
+            playerCollider.bounds.max.y + 0.1f,
+            playerCollider.transform.position.z),
+            halfExtents: halfExtentsValues,
+            direction: -Vector3.up,
+            orientation: quaternion.identity,
+            maxDistance: varMaxDist,
+            layerMask: boxCastLayerMask,
+            queryTriggerInteraction: QueryTriggerInteraction.Ignore);
+        return boxCastHits;
+    }
+
+    void PlayerJump(RaycastHit[] boxCastHits)
+    {
+        foreach (RaycastHit hit in boxCastHits)
+        {
+            Debug.Log(hit.collider);
+            Debug.Log("ground woo");
+            playerBody.AddForce(transform.up * jumpForce, ForceMode.VelocityChange);
+            break;
+        }
     }
     public void ReadInputValue(InputAction.CallbackContext movementContextInformation)
     {
@@ -50,39 +78,15 @@ public class Movement : MonoBehaviour
 
             case "Jump":
                 if (!movementContextInformation.performed) return;
-                //bool groundCheck = Physics.Raycast(transform.position, -transform.up, playerCollider.bounds.extents.y + 0.1f);
-
-                float varMaxDist = playerCollider.bounds.max.y - playerCollider.bounds.min.y + 0.2f;
-                Vector3 halfExtentsValues = new Vector3(playerCollider.bounds.extents.x / 2, 0.1f, playerCollider.bounds.extents.z / 2);
-
-                RaycastHit[] boxCastHits = Physics.BoxCastAll(center: new Vector3(playerCollider.transform.position.x,
-                    playerCollider.bounds.max.y + 0.1f,
-                    playerCollider.transform.position.z),
-                    halfExtents: halfExtentsValues,
-                    direction: -Vector3.up,
-                    orientation: quaternion.identity,
-                    maxDistance: varMaxDist,
-                    layerMask: boxCastLayerMask,
-                    queryTriggerInteraction: QueryTriggerInteraction.Ignore) ;
-
-               // if (!groundCheck) return;
-               foreach (RaycastHit hit in boxCastHits)
-                {
-                    Debug.Log(hit.collider);
-                    if (hit.transform.tag != "Player")
-                    {
-                        Debug.Log("ground woo");
-                        playerBody.AddForce(transform.up * jumpForce, ForceMode.VelocityChange);
-                        break;
-                    }
-                }
+                RaycastHit[] boxCastHits = JumpBoxCastCheck();
+                PlayerJump(boxCastHits);
                 break;
                 
             case "Swimming": 
                 if (!isUnderwater) return;
-                //Debug.Log("underwater");
                 Vector3 contextMovementVector3 = movementContextInformation.ReadValue<Vector3>();
                 movementVector = contextMovementVector3;
+
                 MovePlayer();
                 break;
 
@@ -99,53 +103,4 @@ public class Movement : MonoBehaviour
         playerDirection = movementVector * walkSpeed * Time.fixedDeltaTime;
         playerBody.AddForce(playerDirection, ForceMode.VelocityChange);
     }
-
-    //https://www.youtube.com/watch?v=CoTK39SZft8
-    //maybe its overlap
-    /*
-    private void OnDrawGizmos()
-    {
-        RaycastHit boxCastInfo;
-                //OH MY GOD IM A FOOL
-                float varMaxDist = 100;
-
-                bool groundCheck = Physics.BoxCast(center: new Vector3(playerCollider.transform.position.x, 
-                    playerCollider.bounds.min.y, 
-                    playerCollider.transform.position.z),
-                    halfExtents: new Vector3(playerCollider.bounds.extents.x / 2, 0.1f , playerCollider.bounds.extents.z / 2),
-                    direction: -transform.up, 
-                    hitInfo: out boxCastInfo, 
-                    orientation: quaternion.identity, 
-                    maxDistance: varMaxDist,
-                    layerMask: playerLayerMask, 
-                    queryTriggerInteraction: QueryTriggerInteraction.Ignore);
-        
-        if (boxCastInfo.collider)
-        {
-            Debug.Log("hit something boxcast");
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireCube(center: new Vector3(playerCollider.transform.position.x, 
-                    playerCollider.bounds.min.y, 
-                    playerCollider.transform.position.z),
-                    size: new Vector3(playerCollider.bounds.extents.x, playerCollider.bounds.extents.y, playerCollider.bounds.extents.z)
-                    );
-        }
-        else
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireCube(center: new Vector3(playerCollider.transform.position.x, 
-                playerCollider.bounds.min.y, 
-                playerCollider.transform.position.z),
-                size: new Vector3(playerCollider.bounds.extents.x, playerCollider.bounds.extents.y, playerCollider.bounds.extents.z)
-        );
-        }
-        /*
-        Gizmos.DrawCube(new Vector3(playerCollider.transform.position.x,
-                    playerCollider.bounds.min.y,
-                    playerCollider.transform.position.z),
-            new Vector3(playerCollider.bounds.extents.x, playerCollider.bounds.extents.y , playerCollider.bounds.extents.z));\
-            
-            
-    }*/
-    
 }

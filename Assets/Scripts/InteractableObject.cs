@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DialoguePrompt : MonoBehaviour
+public class InteractableObject : MonoBehaviour
 {
     public string[] dialogue;
     // Start is called before the first frame update

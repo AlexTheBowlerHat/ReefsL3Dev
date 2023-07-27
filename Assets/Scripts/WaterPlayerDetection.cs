@@ -43,12 +43,9 @@ public class WaterPlayerDetection : MonoBehaviour
             if (sceneCamera.transform.position.y < camPosToCheckAgainst || playerTransform.position.y < playerPositionToCheckAgainst) break;
             yield return new WaitForSeconds(loopDelay);
         }
-        Debug.Log("oog, both cam and player under");
+        //Debug.Log("oog, both cam and player under");
         //Control change
-        /*
-        playerInput.actions["Underwater Bindings"].Enable();
-        playerInput.actions["Jump"].Disable();
-        */
+
         playerInput.actions.FindActionMap("Player").Disable();
         playerInput.actions.FindActionMap("UnderWater").Enable();
 
@@ -64,14 +61,14 @@ public class WaterPlayerDetection : MonoBehaviour
     {
         if (otherCollider != playerCollider || playerTransform.position.y < -1f) return;
         StartCoroutine(PlayerAndPlayerCameraPositionCheck(-1f,0.4f));
-        Debug.Log("oog, player enter detected");
+        //Debug.Log("oog, player enter detected");
     }
 
     private void OnTriggerExit(Collider otherCollider)
     {
-        Debug.Log("out oog detected");
+        //Debug.Log("out oog detected");
         if (otherCollider != playerCollider || playerTransform.position.y < oceanPlaneTransform.position.y) return;
-        Debug.Log("player properly above the water");
+        //Debug.Log("player properly above the water");
         //StartCoroutine(PlayerAndPlayerCameraPositionCheck(-10f, 0f));
 
         playerTouchingWater = false;
