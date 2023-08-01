@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class InteractableObject : MonoBehaviour
 {
     public string[] dialogue;
+    public Movement movementScript;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +24,7 @@ public class InteractableObject : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.transform.tag != "Player") return;
-        Debug.Log("Dialogue wahoo");
+        movementScript.CloseDialogueObjects.Append(gameObject);
+        movementScript.playerInput.actions.FindActionMap("Interacting").Enable();
     }
 }

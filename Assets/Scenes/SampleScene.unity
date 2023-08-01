@@ -1948,6 +1948,7 @@ GameObject:
   - component: {fileID: 1303203026}
   - component: {fileID: 1303203025}
   - component: {fileID: 1303203024}
+  - component: {fileID: 1303203028}
   m_Layer: 0
   m_Name: Dialogue Box
   m_TagString: Untagged
@@ -2041,6 +2042,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1303203028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1303203023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd95e107307afb48b1cc3def65479b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogue: []
+  movementScript: {fileID: 2144208787}
 --- !u!1 &1393641484
 GameObject:
   m_ObjectHideFlags: 0
@@ -3170,6 +3185,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 7177e76f-b20a-4445-b4b5-f0321ec31634
     m_ActionName: UnderWater/Swimming[/Keyboard/space,/Keyboard/shift,/Keyboard/a,/Keyboard/d,/Keyboard/w,/Keyboard/s]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 20274460-7abb-4002-a744-dfb8bd61036e
+    m_ActionName: Interacting/Interact[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -3196,3 +3215,4 @@ MonoBehaviour:
   walkSpeed: 20
   jumpForce: 10
   floor: {fileID: 620343438}
+  CloseDialogueObjects: []

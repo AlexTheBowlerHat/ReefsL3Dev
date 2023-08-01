@@ -11,7 +11,7 @@ public class Movement : MonoBehaviour
     [SerializeField] Vector3 movementVector;
     [SerializeField] Vector3 playerDirection;
     [SerializeField] Rigidbody playerBody;
-    [SerializeField] PlayerInput playerInput;
+    public PlayerInput playerInput;
     [SerializeField] Collider playerCollider;
     public bool isUnderwater;
     public int walkSpeed;
@@ -19,6 +19,7 @@ public class Movement : MonoBehaviour
     int boxCastLayerMask = 3;
 
     public GameObject floor;
+    public GameObject[] CloseDialogueObjects;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +28,8 @@ public class Movement : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
         playerCollider = GetComponent<Collider>();
         playerInput.actions.FindActionMap("UnderWater").Disable();
+        playerInput.actions.FindActionMap("Interacting").Disable();
+        
     }
 
     void FixedUpdate()
@@ -61,6 +64,13 @@ public class Movement : MonoBehaviour
             break;
         }
     }
+
+    GameObject CloserIObjectCalculation(Vector3 rayPoint)
+    {
+        GameObject closerGameObject = CloseDialogueObjects[0];
+        return closerGameObject;
+    }
+
     public void ReadInputValue(InputAction.CallbackContext movementContextInformation)
     {
         string actionTriggeredName = movementContextInformation.action.name;
@@ -90,8 +100,16 @@ public class Movement : MonoBehaviour
                 MovePlayer();
                 break;
 
+            case "Interact":
+                Debug.Log("case interact hit thanks mr");
+                RaycastHit interactableObjectRayInfo;
+                bool interactableObjectRayHit = Physics.Raycast(playerBody.transform.position, transform.forward, out interactableObjectRayHit);
+
+
+                break;
+
             default:
-                Debug.Log("uh oh god i dont know its none of the action names");
+                Debug.Log("Default case");
                 break;
         }
     }
