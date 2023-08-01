@@ -1389,7 +1389,7 @@ MonoBehaviour:
   oceanPlaneTransform: {fileID: 897142188}
   waterVolume: {fileID: 832575518}
   playerInput: {fileID: 2144208786}
-  movement: {fileID: 2144208787}
+  playerLogic: {fileID: 0}
 --- !u!65 &897142190
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2055,7 +2055,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogue: []
-  movementScript: {fileID: 2144208787}
+  playerLogic: {fileID: 2144208787}
 --- !u!1 &1393641484
 GameObject:
   m_ObjectHideFlags: 0
@@ -2163,7 +2163,7 @@ MonoBehaviour:
   oceanPlaneTransform: {fileID: 1426031247}
   waterVolume: {fileID: 832575518}
   playerInput: {fileID: 0}
-  movement: {fileID: 0}
+  playerLogic: {fileID: 0}
 --- !u!65 &1426031244
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3186,7 +3186,19 @@ MonoBehaviour:
     m_ActionId: 7177e76f-b20a-4445-b4b5-f0321ec31634
     m_ActionName: UnderWater/Swimming[/Keyboard/space,/Keyboard/shift,/Keyboard/a,/Keyboard/d,/Keyboard/w,/Keyboard/s]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2144208787}
+        m_TargetAssemblyTypeName: PlayerLogic, Assembly-CSharp
+        m_MethodName: ReadInputValue
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 20274460-7abb-4002-a744-dfb8bd61036e
     m_ActionName: Interacting/Interact[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
@@ -3215,4 +3227,4 @@ MonoBehaviour:
   walkSpeed: 20
   jumpForce: 10
   floor: {fileID: 620343438}
-  CloseDialogueObjects: []
+  CloseInteractObjects: []

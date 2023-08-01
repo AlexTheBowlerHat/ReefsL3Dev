@@ -21,7 +21,7 @@ public class WaterPlayerDetection : MonoBehaviour
     float loopDelay = 0.1f;
 
     public PlayerInput playerInput;
-    public Movement movement;
+    public PlayerLogic playerLogic;
 
 
     // Start is called before the first frame update
@@ -50,7 +50,7 @@ public class WaterPlayerDetection : MonoBehaviour
         playerInput.actions.FindActionMap("UnderWater").Enable();
 
         waterVolume.enabled = true;
-        movement.isUnderwater = true;
+        playerLogic.isUnderwater = true;
         playerRigidBody.useGravity = false;
  
         yield break;
@@ -79,6 +79,6 @@ public class WaterPlayerDetection : MonoBehaviour
 
         waterVolume.enabled = false;
         
-        movement.isUnderwater = false;
+        playerLogic.isUnderwater = false;
     }
 }

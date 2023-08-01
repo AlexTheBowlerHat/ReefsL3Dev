@@ -6,7 +6,7 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Movement : MonoBehaviour
+public class PlayerLogic : MonoBehaviour
 {
     [SerializeField] Vector3 movementVector;
     [SerializeField] Vector3 playerDirection;
@@ -19,7 +19,7 @@ public class Movement : MonoBehaviour
     int boxCastLayerMask = 3;
 
     public GameObject floor;
-    public GameObject[] CloseDialogueObjects;
+    public GameObject[] CloseInteractObjects;
 
     // Start is called before the first frame update
     void Start()
@@ -67,8 +67,18 @@ public class Movement : MonoBehaviour
 
     GameObject CloserIObjectCalculation(Vector3 rayPoint)
     {
-        GameObject closerGameObject = CloseDialogueObjects[0];
-        return closerGameObject;
+        float baseMagnitude = (CloseInteractObjects[0].transform.position - rayPoint).magnitude;
+        GameObject closestGameObject = CloseInteractObjects[0];
+
+        foreach (GameObject closeInteractObject in CloseInteractObjects)
+        {
+            if ((closeInteractObject.transform.position - rayPoint).magnitude < baseMagnitude)
+            {
+                closestGameObject = closeInteractObject;
+            }
+        }
+        Debug.Log("Closest interaction object is " + closestGameObject.ToString());
+        return closestGameObject;
     }
 
     public void ReadInputValue(InputAction.CallbackContext movementContextInformation)
@@ -103,9 +113,15 @@ public class Movement : MonoBehaviour
             case "Interact":
                 Debug.Log("case interact hit thanks mr");
                 RaycastHit interactableObjectRayInfo;
-                bool interactableObjectRayHit = Physics.Raycast(playerBody.transform.position, transform.forward, out interactableObjectRayHit);
+                bool interactableObjectRayHit = Physics.Raycast(playerBody.transform.position, 
+                    -transform.up, 
+                    out interactableObjectRayInfo, 
+                    maxDistance: 10f,
+                    boxCastLayerMask,
+                    QueryTriggerInteraction.Ignore);
 
-
+                if (!interactableObjectRayHit) return;
+                CloserIObjectCalculation(interactableObjectRayInfo.point);
                 break;
 
             default:

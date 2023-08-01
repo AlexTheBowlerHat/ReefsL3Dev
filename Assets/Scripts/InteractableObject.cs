@@ -2,29 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class InteractableObject : MonoBehaviour
 {
     public string[] dialogue;
-    public Movement movementScript;
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public PlayerLogic playerLogic;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.transform.tag != "Player") return;
-        movementScript.CloseDialogueObjects.Append(gameObject);
-        movementScript.playerInput.actions.FindActionMap("Interacting").Enable();
+        playerLogic.CloseInteractObjects.Append(gameObject);
+        playerLogic.playerInput.actions.FindActionMap("Interacting").Enable();
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.transform.tag != "Player") return;
+        //remove object from array
+        playerLogic.playerInput.actions.FindActionMap("Interacting").Disable();
     }
 }
