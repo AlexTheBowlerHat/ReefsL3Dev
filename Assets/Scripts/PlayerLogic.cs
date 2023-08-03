@@ -67,6 +67,7 @@ public class PlayerLogic : MonoBehaviour
 
     GameObject CloserIObjectCalculation(Vector3 rayPoint)
     {
+        Debug.Log(CloseInteractObjects);
         float baseMagnitude = (CloseInteractObjects[0].transform.position - rayPoint).magnitude;
         GameObject closestGameObject = CloseInteractObjects[0];
 
