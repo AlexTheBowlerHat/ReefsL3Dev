@@ -19,7 +19,7 @@ public class PlayerLogic : MonoBehaviour
     int boxCastLayerMask = 3;
 
     public GameObject floor;
-    public GameObject[] CloseInteractObjects;
+    public List<GameObject> CloseInteractObjects;
 
     // Start is called before the first frame update
     void Start()
@@ -112,7 +112,9 @@ public class PlayerLogic : MonoBehaviour
                 break;
 
             case "Interact":
-                Debug.Log("case interact hit thanks mr");
+                Debug.Log("case interact hit");
+                if (!movementContextInformation.performed) return;
+
                 RaycastHit interactableObjectRayInfo;
                 bool interactableObjectRayHit = Physics.Raycast(playerBody.transform.position, 
                     -transform.up, 
