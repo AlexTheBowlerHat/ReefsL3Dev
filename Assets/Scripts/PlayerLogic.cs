@@ -20,6 +20,7 @@ public class PlayerLogic : MonoBehaviour
 
     public GameObject floor;
     public List<GameObject> CloseInteractObjects;
+    float rayCastMaxDist = 10f;
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +37,12 @@ public class PlayerLogic : MonoBehaviour
     {
         //playerBody.AddForce(Physics.gravity,ForceMode.Acceleration);
         MovePlayer();
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(Camera.main.transform.position, new Vector3(playerBody.transform.position.x, playerBody.transform.position.y, playerBody.transform.position.z + rayCastMaxDist));
     }
     RaycastHit[] JumpBoxCastCheck()
     {
@@ -64,7 +71,7 @@ public class PlayerLogic : MonoBehaviour
             break;
         }
     }
-
+    /*
     GameObject CloserIObjectCalculation(Vector3 rayPoint)
     {
         Debug.Log(CloseInteractObjects);
@@ -81,7 +88,7 @@ public class PlayerLogic : MonoBehaviour
         Debug.Log("Closest interaction object is " + closestGameObject.ToString());
         return closestGameObject;
     }
-
+    */
     public void ReadInputValue(InputAction.CallbackContext movementContextInformation)
     {
         string actionTriggeredName = movementContextInformation.action.name;
@@ -112,19 +119,23 @@ public class PlayerLogic : MonoBehaviour
                 break;
 
             case "Interact":
-                Debug.Log("case interact hit");
                 if (!movementContextInformation.performed) return;
+                Debug.Log("=====");
+                Debug.Log("case interact ");
+                /*Vector3 rayDirection = Camera.main.transform.position - playerBody.transform.position;
 
-                RaycastHit interactableObjectRayInfo;
-                bool interactableObjectRayHit = Physics.Raycast(playerBody.transform.position, 
-                    -transform.up, 
-                    out interactableObjectRayInfo, 
-                    maxDistance: 10f,
-                    boxCastLayerMask,
-                    QueryTriggerInteraction.Ignore);
+                RaycastHit[] interactableObjectRayHits = Physics.RaycastAll(playerBody.transform.position,
+                    transform.forward, 
+                    maxDistance: (Camera.main.transform.position -  new Vector3(playerBody.transform.position.x, playerBody.transform.position.y, playerBody.transform.position.z + rayCastMaxDist)).magnitude,
+                    LayerMask.GetMask("InteractObjects"), //Layer of interactable objects
+                    QueryTriggerInteraction.Collide);
 
-                if (!interactableObjectRayHit) return;
-                CloserIObjectCalculation(interactableObjectRayInfo.point);
+                Debug.Log(interactableObjectRayHits[0]);
+                if (interactableObjectRayHits.Length <= 0) return;
+                Debug.Log("got to ray hit");
+               
+
+                CloserIObjectCalculation(interactableObjectRayHits[0].point);*/
                 break;
 
             default:

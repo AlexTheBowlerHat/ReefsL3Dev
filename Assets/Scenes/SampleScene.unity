@@ -1949,7 +1949,7 @@ GameObject:
   - component: {fileID: 1303203025}
   - component: {fileID: 1303203024}
   - component: {fileID: 1303203028}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Dialogue Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1975,7 +1975,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 5, y: 5, z: 5}
+  m_Size: {x: 10, y: 10, z: 20}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1303203025
 MeshRenderer:
@@ -3220,8 +3220,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementVector: {x: 0, y: 0, z: 0}
   playerDirection: {x: 0, y: 0, z: 0}
-  playerBody: {fileID: 0}
-  playerInput: {fileID: 0}
+  playerBody: {fileID: 2144208780}
+  playerInput: {fileID: 2144208786}
   playerCollider: {fileID: 2144208781}
   isUnderwater: 0
   walkSpeed: 20
