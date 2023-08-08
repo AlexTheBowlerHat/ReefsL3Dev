@@ -2056,6 +2056,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogue: []
   playerLogic: {fileID: 2144208787}
+  interactableObjectType: Dialogue
 --- !u!1 &1393641484
 GameObject:
   m_ObjectHideFlags: 0
@@ -2260,6 +2261,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1449060470}
   - component: {fileID: 1449060469}
+  - component: {fileID: 1449060471}
   m_Layer: 5
   m_Name: SceneUI
   m_TagString: Untagged
@@ -2299,6 +2301,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1449060471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1449060468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c90100faf8ced840b10c48218f96adf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DialogueUI: {fileID: 1449060469}
 --- !u!1 &1614183901
 GameObject:
   m_ObjectHideFlags: 0
@@ -3228,3 +3243,4 @@ MonoBehaviour:
   jumpForce: 10
   floor: {fileID: 620343438}
   CloseInteractObjects: []
+  dialogueHandler: {fileID: 1449060471}

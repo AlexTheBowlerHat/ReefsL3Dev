@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
@@ -21,6 +22,7 @@ public class PlayerLogic : MonoBehaviour
     public GameObject floor;
     public List<GameObject> CloseInteractObjects;
     float rayCastMaxDist = 10f;
+    [SerializeField] private DialogueHandler dialogueHandler;
 
     // Start is called before the first frame update
     void Start()
@@ -89,6 +91,25 @@ public class PlayerLogic : MonoBehaviour
         return closestGameObject;
     }
     */
+    void InteractionLogic(GameObject interactObject)
+    {
+        
+        switch (interactObject.GetComponent<InteractableObject>().interactableObjectType)
+        {
+            case "Dialogue":
+                Debug.Log("dialogue case");
+                dialogueHandler.ChangeDialogue();
+                break;
+
+            case "Pickup":
+                Debug.Log("pickup case");
+                break;
+
+            default:
+                Debug.LogWarning("default interact case");
+                break;
+        }
+    }
     public void ReadInputValue(InputAction.CallbackContext movementContextInformation)
     {
         string actionTriggeredName = movementContextInformation.action.name;
@@ -122,6 +143,7 @@ public class PlayerLogic : MonoBehaviour
                 if (!movementContextInformation.performed) return;
                 Debug.Log("=====");
                 Debug.Log("case interact ");
+                InteractionLogic(CloseInteractObjects[0]);
                 /*Vector3 rayDirection = Camera.main.transform.position - playerBody.transform.position;
 
                 RaycastHit[] interactableObjectRayHits = Physics.RaycastAll(playerBody.transform.position,

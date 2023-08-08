@@ -8,6 +8,7 @@ public class InteractableObject : MonoBehaviour
 {
     public string[] dialogue;
     public PlayerLogic playerLogic;
+    public string interactableObjectType;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -25,5 +26,7 @@ public class InteractableObject : MonoBehaviour
         if (other.gameObject != playerLogic.gameObject) return;
         //remove object from array
         playerLogic.playerInput.actions.FindActionMap("Interacting").Disable();
+        if (!playerLogic.CloseInteractObjects.Find(x => gameObject)) return;
+        playerLogic.CloseInteractObjects.Remove(gameObject);
     }
 }
