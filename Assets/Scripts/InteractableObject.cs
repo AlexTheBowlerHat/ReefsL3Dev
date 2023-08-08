@@ -6,7 +6,7 @@ using UnityEngine.Rendering;
 
 public class InteractableObject : MonoBehaviour
 {
-    public string[] dialogue;
+    public string dialogue;
     public PlayerLogic playerLogic;
     public string interactableObjectType;
 

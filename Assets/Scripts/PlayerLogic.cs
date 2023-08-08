@@ -32,7 +32,6 @@ public class PlayerLogic : MonoBehaviour
         playerCollider = GetComponent<Collider>();
         playerInput.actions.FindActionMap("UnderWater").Disable();
         playerInput.actions.FindActionMap("Interacting").Disable();
-        
     }
 
     void FixedUpdate()
@@ -98,7 +97,7 @@ public class PlayerLogic : MonoBehaviour
         {
             case "Dialogue":
                 Debug.Log("dialogue case");
-                dialogueHandler.ChangeDialogue();
+                dialogueHandler.ChangeDialogue(CloseInteractObjects[0].GetComponent<InteractableObject>().dialogue);
                 break;
 
             case "Pickup":

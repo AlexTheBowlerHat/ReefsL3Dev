@@ -2054,7 +2054,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd95e107307afb48b1cc3def65479b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogue: []
+  dialogue:
+  - Loreum Ipsum this is test dialogue wo wow wow
   playerLogic: {fileID: 2144208787}
   interactableObjectType: Dialogue
 --- !u!1 &1393641484
