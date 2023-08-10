@@ -2054,8 +2054,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd95e107307afb48b1cc3def65479b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogue:
-  - Loreum Ipsum this is test dialogue wo wow wow
+  dialogue: A vertex (plural vertices) in computer graphics is a data structure that
+    describes certain attributes, like the position of a point in 2D or 3D space,
+    or multiple points on a surface.  Application to 3D models 3D models are most
+    often represented as triangulated polyhedra forming a triangle mesh. Non-triangular
+    surfaces can be converted to an array of triangles through tessellation. Attributes
+    from the vertices are typically interpolated across mesh surfaces.
   playerLogic: {fileID: 2144208787}
   interactableObjectType: Dialogue
 --- !u!1 &1393641484
@@ -2315,6 +2319,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DialogueUI: {fileID: 1449060469}
+  splitDialogue: []
 --- !u!1 &1614183901
 GameObject:
   m_ObjectHideFlags: 0
