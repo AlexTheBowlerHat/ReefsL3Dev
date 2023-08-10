@@ -1,6 +1,8 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/DialogueStyle.uss?fileID=7433441132597879392&amp;guid=b4c304e07b226334ba66289612696fc3&amp;type=3#DialogueStyle" />
     <ui:VisualElement name="BG" style="flex-grow: 1; background-color: rgba(253, 253, 253, 0); width: 100%; height: 100%; flex-direction: column-reverse; justify-content: flex-start; flex-wrap: wrap; align-items: center;">
-        <ui:Label tabindex="-1" text="This is a dialogue box" display-tooltip-when-elided="true" name="Dialogue" style="-unity-text-align: middle-center; white-space: normal; text-overflow: ellipsis; -unity-font-style: bold; height: 10%; width: 90%; background-color: rgb(255, 255, 255); bottom: 1%; flex-direction: column-reverse; flex-wrap: wrap; justify-content: center; align-items: center; -unity-font: url(&apos;project://database/Assets/Fonts/Lato/Lato-Regular.ttf?fileID=12800000&amp;guid=c463657d44a026644b71d132fc86da30&amp;type=3#Lato-Regular&apos;); -unity-font-definition: url(&apos;project://database/Assets/Fonts/Lato-Regular%20SDF.asset?fileID=11400000&amp;guid=7543a77300bc4824b898f3728ea7d7a5&amp;type=2#Lato-Regular SDF&apos;);" />
+        <ui:Label tabindex="-1" text="This is a dialogue box" display-tooltip-when-elided="true" name="Dialogue" class="Dialogue-Label">
+            <ui:Button text="Button" display-tooltip-when-elided="true" name="ClickToContinue" class="Dialogue-Label" style="width: 100%; height: 100%; border-left-color: rgba(149, 149, 149, 0); border-right-color: rgba(149, 149, 149, 0); border-top-color: rgba(149, 149, 149, 0); border-bottom-color: rgba(149, 149, 149, 0); color: rgba(27, 27, 27, 0); background-color: rgba(255, 255, 255, 0);" />
+        </ui:Label>
     </ui:VisualElement>
 </ui:UXML>
