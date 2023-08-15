@@ -32,6 +32,7 @@ public class DialogueHandler : MonoBehaviour
     void ContinueText()
     {
         continueTextAlong = true;
+        dialogueLabel.style.opacity = 100;
         dialogueButton.SetEnabled(false);
         dialogueButton.visible = false;
     }
