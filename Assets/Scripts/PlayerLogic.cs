@@ -98,6 +98,7 @@ public class PlayerLogic : MonoBehaviour
             case "Dialogue":
                 Debug.Log("dialogue case");
                 StartCoroutine(dialogueHandler.ChangeDialogue(CloseInteractObjects[0].GetComponent<InteractableObject>().dialogue));
+                playerInput.actions.FindActionMap("Interacting").Disable();
                 break;
 
             case "Pickup":

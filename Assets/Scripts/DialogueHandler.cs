@@ -24,6 +24,7 @@ public class DialogueHandler : MonoBehaviour
         dialogueButton = rootUIElement.Q<UnityEngine.UIElements.Button>("ClickToContinue");
 
         dialogueButton.SetEnabled(false);
+        dialogueButton.visible = false;
         dialogueButton.RegisterCallback<ClickEvent>(ev => ContinueText());
         dialogueLabel.visible = false;
         dialogueLabel.text = "";
@@ -32,15 +33,14 @@ public class DialogueHandler : MonoBehaviour
     {
         continueTextAlong = true;
         dialogueButton.SetEnabled(false);
+        dialogueButton.visible = false;
     }
     IEnumerator TextTypingEffect(string dialogue)
     {
-        while (addingText)
-        {
-            yield return new WaitForSeconds(0.1f);
-        }
         addingText = true;
+
         Debug.Log("Dialogue is: " + dialogue);
+        //Typing effect
         foreach (char character in dialogue)
         {
             dialogueLabel.text += character;
@@ -48,30 +48,38 @@ public class DialogueHandler : MonoBehaviour
             yield return new WaitForSeconds(0.05f);
         }
 
-        //Pause Effect
+        //Pause Effect, allows dialogue to be clicked and waits till the player clicks
+        dialogueButton.visible = true;
         dialogueButton.SetEnabled(true);
         while (!continueTextAlong)
         {
             yield return new WaitForSeconds(0.01f);
         }
+
         continueTextAlong = false;
         dialogueLabel.text = "";
         addingText = false;
         yield break;
     }
-    public IEnumerator ChangeDialogue(string dialogueList)
+    public IEnumerator ChangeDialogue(List<string> dialogueList)
     {
         dialogueLabel.visible = true;
-        dialogueSplitter(dialogueList);
+        //dialogueSplitter(dialogueList);
 
-        foreach (var line in splitDialogue) 
+        foreach (var line in dialogueList) 
         {
+            //Delay so that the next line isnt called until the first one is done
+            while (addingText)
+            {
+                yield return new WaitForSeconds(0.2f);
+            }
             StartCoroutine(TextTypingEffect(line));
-            yield return new WaitForSeconds(0.2f);
         }
+        dialogueLabel.visible = false;
         yield break;
 
     }
+    /*
     void dialogueSplitter(string dialogueToBeSplit)
     {
         string[] sentenceSplitDialogue = Regex.Split(dialogueToBeSplit, @"(?<=[.])");
@@ -83,6 +91,7 @@ public class DialogueHandler : MonoBehaviour
         }
 
     }
+    */
     /*
     //I counted, the rough length of a line in the text box is 135
     void LongStringSplitter(string sentence)

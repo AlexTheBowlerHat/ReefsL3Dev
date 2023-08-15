@@ -1,8 +1,8 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/DialogueStyle.uss?fileID=7433441132597879392&amp;guid=b4c304e07b226334ba66289612696fc3&amp;type=3#DialogueStyle" />
     <ui:VisualElement name="BG" style="flex-grow: 1; background-color: rgba(253, 253, 253, 0); width: 100%; height: 100%; flex-direction: column-reverse; justify-content: flex-start; flex-wrap: wrap; align-items: center;">
-        <ui:Label tabindex="-1" text="This is a dialogue box" display-tooltip-when-elided="true" name="Dialogue" class="Dialogue-Label">
-            <ui:Button text="Button" display-tooltip-when-elided="true" name="ClickToContinue" class="Dialogue-Label" style="width: 100%; height: 100%; border-left-color: rgba(149, 149, 149, 0); border-right-color: rgba(149, 149, 149, 0); border-top-color: rgba(149, 149, 149, 0); border-bottom-color: rgba(149, 149, 149, 0); color: rgba(27, 27, 27, 0); background-color: rgba(255, 255, 255, 0);" />
+        <ui:Label tabindex="-1" text="This is a dialogue box" display-tooltip-when-elided="true" name="Dialogue" class="Dialogue-Label" style="border-top-left-radius: 10px; border-bottom-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
+            <ui:Button text="Button" display-tooltip-when-elided="true" name="ClickToContinue" class="Dialogue-Label" style="width: 100%; height: 100%; border-left-color: rgba(149, 149, 149, 0); border-right-color: rgba(149, 149, 149, 0); border-top-color: rgba(149, 149, 149, 0); border-bottom-color: rgba(149, 149, 149, 0); color: rgba(27, 27, 27, 0); background-color: rgba(255, 255, 255, 0); cursor: url(&apos;project://database/Assets/the-mouse-cursor-3184905_1920.png?fileID=2800000&amp;guid=0734993845d63634186645f9ad089104&amp;type=3#the-mouse-cursor-3184905_1920&apos;);" />
         </ui:Label>
     </ui:VisualElement>
 </ui:UXML>
