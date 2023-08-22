@@ -6,28 +6,43 @@ using UnityEngine.UIElements;
 
 public class Boids : MonoBehaviour
 {
+    Vector3 steeringDirection = Vector3.zero;
+    float boidSpeed;
+    float minBoidSpeed = 2f;
+    public float maxBoidSpeed = 5f;
+    //Velocity is speed with direction
     Vector3 boidVelocity = Vector3.zero;
-    public float boidSpeed = 5f;
+
+    Vector3 boidAcceleration = Vector3.zero;
+    float maxBoidAcceleration = 3f;
+
+    float seperateWeight = 1f;
+    float alignWeight = 1f;
+    float cohesionWeight = 1f;
 
     Quaternion boidOrientation;
     //===============
     float boidDectionRadius = 5f;
 
-    Vector3 steeringDirection = Vector3.zero;
     Vector3 steeringForce = Vector3.zero;
     Rigidbody boidBody;
     SphereCollider boidNeighbourCollider;
     List<Vector3> nearBoidPositions;
 
-    //steeringforce = truncate (steering_direction, max_force)
-    //acceleration = steering_force / mass
-    //float boidMaxForce = 0f;
+    private void Awake()
+    {
+        InitiliseValues();
+    }
+
+    void InitiliseValues()
+    {
+
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         boidBody = gameObject.GetComponent<Rigidbody>();
-        //boidMass = boidBody.mass;
         boidOrientation = quaternion.identity;
 
         boidNeighbourCollider = gameObject.GetComponent<SphereCollider>();
@@ -37,25 +52,20 @@ public class Boids : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateMovement();
+        UpdateBoidMovement();
 
     }
-
-    void UpdateMovement()
+    void UpdateBoidMovement()
     {
-        Vector3 seperateVector = Seperate();
-        boidVelocity = (transform.forward.normalized + seperateVector.normalized) * boidSpeed;
-        gameObject.transform.position += (boidVelocity * Time.deltaTime);
+        if (nearBoidPositions.Capacity > 0) 
+        {
+            //ALL PLACEHOLDERS
+            Vector3 seperateVector = SteerTowards(vector: Vector3.zero) * seperateWeight;
+            Vector3 alignVector =  SteerTowards(vector: Vector3.zero) * alignWeight; 
+            Vector3 cohesionVector = SteerTowards(vector: Vector3.zero) * cohesionWeight;
+        }
 
-
-        //boidVelocity = truncate (velocity + acceleration, max_speed)
-        //boidPosition = position + velocity
-        //steeringForce = Vector3.ClampMagnitude(steeringForce, boidMaxForce);
-    }
-    Vector3 Seperate()
-    {
-        Vector3 seperateVector = Vector3.zero;
-        foreach (Vector3 neighbourBoidPosition in nearBoidPositions) 
+        foreach (Vector3 neighbourBoidPosition in nearBoidPositions)
         {
             Vector3 toNeibourBoidVector = neighbourBoidPosition - gameObject.transform.position;
             //something about the magnitude (shorter is better priority)
@@ -63,15 +73,21 @@ public class Boids : MonoBehaviour
             //and adding them together before inversing the vector
         }
 
-        return seperateVector;
-    }
-    void Align()
-    {
+        boidSpeed = boidVelocity.magnitude;
+        boidVelocity = (steeringDirection) * boidSpeed;
+        gameObject.transform.position += (boidVelocity * Time.deltaTime);
 
+        //boidVelocity = truncate (velocity + acceleration, max_speed)
+        //boidPosition = position + velocity
+        //steeringForce = Vector3.ClampMagnitude(steeringForce, boidMaxForce);
     }
-    void StickTogether()
-    {
 
+
+    //Taken from https://github.com/SebLague/Boids/blob/master/Assets/Scripts/Boid.cs 
+    Vector3 SteerTowards(Vector3 vector)
+    {
+        Vector3 v = vector.normalized * maxBoidSpeed - boidVelocity;
+        return Vector3.ClampMagnitude(v, maxBoidAcceleration);
     }
 
     private void OnTriggerEnter(Collider other)
