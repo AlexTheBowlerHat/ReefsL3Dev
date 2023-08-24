@@ -27,6 +27,7 @@ public class Boids : MonoBehaviour
     Vector3 steeringForce = Vector3.zero;
     Rigidbody boidBody;
     SphereCollider boidNeighbourCollider;
+    BoidFlockInformation boidFlockInformation;
     List<Vector3> nearBoidPositions;
 
     private void Awake()
@@ -36,9 +37,11 @@ public class Boids : MonoBehaviour
 
     void InitiliseValues()
     {
+        nearBoidPositions = boidFlockInformation.nearBoidPositions;
+        boidVelocity = transform.forward * minBoidSpeed;
+        boidVelocity = Vector3.ClampMagnitude(boidVelocity, minBoidSpeed);
 
     }
-
     // Start is called before the first frame update
     void Start()
     {
@@ -57,14 +60,22 @@ public class Boids : MonoBehaviour
     }
     void UpdateBoidMovement()
     {
-        if (nearBoidPositions.Capacity > 0) 
+        Debug.Log("before boid near check");
+
+        //__Flock rule calculations__
+        if (nearBoidPositions.Capacity > 0)
         {
             //ALL PLACEHOLDERS
-            Vector3 seperateVector = SteerTowards(vector: Vector3.zero) * seperateWeight;
-            Vector3 alignVector =  SteerTowards(vector: Vector3.zero) * alignWeight; 
+            Vector3 seperateVector = SteerTowards(vector: boidFlockInformation.CalcSeperationHeading()) * seperateWeight;
+            Vector3 alignVector = SteerTowards(vector: Vector3.zero) * alignWeight;
             Vector3 cohesionVector = SteerTowards(vector: Vector3.zero) * cohesionWeight;
+
+            boidAcceleration += seperateVector;
+            boidAcceleration += alignVector;
+            boidAcceleration += cohesionVector;
         }
 
+        Debug.Log("after boid near check");
         foreach (Vector3 neighbourBoidPosition in nearBoidPositions)
         {
             Vector3 toNeibourBoidVector = neighbourBoidPosition - gameObject.transform.position;
@@ -73,6 +84,8 @@ public class Boids : MonoBehaviour
             //and adding them together before inversing the vector
         }
 
+        Debug.Log("movement");
+        //__Movement__  
         boidSpeed = boidVelocity.magnitude;
         boidVelocity = (steeringDirection) * boidSpeed;
         gameObject.transform.position += (boidVelocity * Time.deltaTime);
@@ -90,13 +103,13 @@ public class Boids : MonoBehaviour
         return Vector3.ClampMagnitude(v, maxBoidAcceleration);
     }
 
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         if (other.tag != "Boid") { return; }
         nearBoidPositions.Add(other.transform.position);
     }
 
-    private void OnTriggerExit(Collider other)
+    void OnTriggerExit(Collider other)
     {
         if (other.tag != "Boid") { return; }
         nearBoidPositions.Remove(other.transform.position);
