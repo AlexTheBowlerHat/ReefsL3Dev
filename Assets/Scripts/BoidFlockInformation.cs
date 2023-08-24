@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BoidFlockInformation : MonoBehaviour
 {
-    public List<Vector3> nearBoidPositions;
+    public List<GameObject> nearBoids;
     public Vector3 flockHeading;
     //ALSO NEED A SOMEHOW WAY TO TRACK NEARBY oh wait this can just be on every boid 
 
@@ -12,25 +12,43 @@ public class BoidFlockInformation : MonoBehaviour
 
     public Vector3 CalcSeperationHeading()
     {
+        if (nearBoids.Count <= 0) { return Vector3.zero; }
         Vector3 seperationHeading = Vector3.zero;
-        foreach (var position in nearBoidPositions) 
+        foreach (var boid in nearBoids) 
         {
-            seperationHeading += position;
+            seperationHeading += (gameObject.transform.position - boid.transform.position);
         }
-        seperationHeading /= nearBoidPositions.Count;
+        seperationHeading /= nearBoids.Count;
+
+        Debug.Log("__SEPERATION HEADING__ OF " + gameObject.name + " IS: " + seperationHeading);
         return seperationHeading;
     }
 
-
-    // Start is called before the first frame update
-    void Start()
+    public Vector3 CalcAlignHeading()
     {
-        
+        if (nearBoids.Count <= 0) { return Vector3.zero; }
+        Vector3 alignHeading = Vector3.zero;
+
+        foreach (var boid in nearBoids)
+        {
+            alignHeading += boid.transform.forward;
+        }
+        alignHeading/= nearBoids.Count;
+        Debug.Log("__ALIGN HEADING__ OF " + gameObject.name + " IS: " + alignHeading);
+        return alignHeading;
+    }
+    void OnTriggerEnter(Collider other)
+    {
+        Debug.Log(other + "'s collider entered");
+        if (other.tag != "Boid") { return; }
+        nearBoids.Add(other.gameObject);
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnTriggerExit(Collider other)
     {
-        
+        Debug.Log(other + "'s collider exited");
+        if (other.tag != "Boid") { return; }
+        nearBoids.Remove(other.gameObject);
     }
 }
+
