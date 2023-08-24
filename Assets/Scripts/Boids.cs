@@ -30,13 +30,9 @@ public class Boids : MonoBehaviour
     BoidFlockInformation boidFlockInformation;
     List<Vector3> nearBoidPositions;
 
-    private void Awake()
-    {
-        InitiliseValues();
-    }
-
     void InitiliseValues()
     {
+        boidFlockInformation = gameObject.GetComponent<BoidFlockInformation>();
         nearBoidPositions = boidFlockInformation.nearBoidPositions;
         boidVelocity = transform.forward * minBoidSpeed;
         boidVelocity = Vector3.ClampMagnitude(boidVelocity, minBoidSpeed);
@@ -45,6 +41,7 @@ public class Boids : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        InitiliseValues();
         boidBody = gameObject.GetComponent<Rigidbody>();
         boidOrientation = quaternion.identity;
 
