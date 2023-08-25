@@ -21,23 +21,23 @@ public class Boids : MonoBehaviour
     SphereCollider boidNeighbourCollider;
     BoidFlockInformation boidFlockInformation;
     List<GameObject> nearBoids;
+    [SerializeField]
     BoidSettings boidSettings;
 
-    void InitiliseValues()
-    {
-        boidFlockInformation = gameObject.GetComponent<BoidFlockInformation>();
-        nearBoids = boidFlockInformation.nearBoids;
-        boidVelocity = transform.forward * boidSettings.minBoidSpeed;
-        boidBody = gameObject.GetComponent<Rigidbody>();
-        boidSettings = GameObject.Find("BoidSettingsHolder").GetComponent<BoidSettings>();
-        boidNeighbourCollider = gameObject.GetComponent<SphereCollider>();
-        boidNeighbourCollider.radius = boidSettings.boidDectionRadius;
-    }
     // Start is called before the first frame update
     void Start()
     {
-        InitiliseValues();
+        boidSettings = GameObject.Find("BoidSettingsHolder").GetComponent<BoidSettings>();
+        boidFlockInformation = gameObject.GetComponent<BoidFlockInformation>();
 
+        nearBoids = boidFlockInformation.nearBoids;
+        boidVelocity = transform.forward * boidSettings.minBoidSpeed;
+        boidBody = gameObject.GetComponent<Rigidbody>();
+        boidNeighbourCollider = gameObject.GetComponent<SphereCollider>();
+
+        //Typecast magic I think https://discussions.unity.com/t/c-changing-the-radius-of-the-sphere-collider/28045
+        (boidNeighbourCollider as SphereCollider).radius = boidSettings.boidDectionRadius;
+        
     }
 
     // Update is called once per frame
@@ -56,24 +56,14 @@ public class Boids : MonoBehaviour
         {
             //ALL PLACEHOLDERS
             Vector3 seperateVector = SteerTowards(vector: boidFlockInformation.CalcSeperationHeading()) * boidSettings.seperateWeight;
-            Vector3 alignVector = SteerTowards(vector: Vector3.zero) * boidSettings.alignWeight;
-            Vector3 cohesionVector = SteerTowards(vector: Vector3.zero) * boidSettings.cohesionWeight;
+            Vector3 alignVector = SteerTowards(vector: boidFlockInformation.CalcAlignHeading()) * boidSettings.alignWeight;
+            Vector3 cohesionVector = SteerTowards(vector: boidFlockInformation.CalcCohesionHeading()) * boidSettings.cohesionWeight;
 
             boidAcceleration += seperateVector;
             boidAcceleration += alignVector;
             boidAcceleration += cohesionVector;
         }
 
-        Debug.Log("after boid near check");
-        /*
-        foreach (Vector3 neighbourBoidPosition in nearBoidPositions)
-        {
-            Vector3 toNeibourBoidVector = neighbourBoidPosition - gameObject.transform.position;
-            //something about the magnitude (shorter is better priority)
-            //maybe like find the smallest and largest vectors, then the magnitude difference is what its compared to
-            //and adding them together before inversing the vector
-        }
-        */
         Debug.Log("movement");
         //__Movement__  
         float boidSpeed;
@@ -82,13 +72,13 @@ public class Boids : MonoBehaviour
         Debug.Log("*VELOCITY IS* " + boidVelocity);
 
         boidSpeed = boidVelocity.magnitude;
-        direction = boidVelocity/boidSpeed;
+        direction = boidVelocity/boidSpeed; //Normalising the vector
         boidSpeed = Mathf.Clamp(boidSpeed, boidSettings.minBoidSpeed, boidSettings.maxBoidSpeed);
 
         Debug.Log("*DIRECTION* and *SPEED* are: " + direction + boidSpeed);
         boidVelocity = direction * boidSpeed;
-        //boidVelocity = (steeringDirection) * boidSpeed;
         gameObject.transform.position += (boidVelocity * Time.deltaTime);
+        gameObject.transform.forward = direction; //Effectively rotates the boid
 
         Debug.Log("===============");
     }
