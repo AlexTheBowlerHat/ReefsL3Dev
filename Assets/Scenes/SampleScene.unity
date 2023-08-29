@@ -872,7 +872,7 @@ PrefabInstance:
     - target: {fileID: 3660208581869607563, guid: 1776477b797a0d84396c3cd69e8f8dfb,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 14.96
+      value: 11.01
       objectReference: {fileID: 0}
     - target: {fileID: 3660208581869607563, guid: 1776477b797a0d84396c3cd69e8f8dfb,
         type: 3}
@@ -1500,7 +1500,7 @@ PrefabInstance:
     - target: {fileID: 3660208581869607563, guid: 1776477b797a0d84396c3cd69e8f8dfb,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.66
+      value: -0.59
       objectReference: {fileID: 0}
     - target: {fileID: 3660208581869607563, guid: 1776477b797a0d84396c3cd69e8f8dfb,
         type: 3}
@@ -2576,6 +2576,8 @@ MonoBehaviour:
   cohesionWeight: 1
   boidDectionRadius: 5
   avoidRadius: 1
+  collisionAvoidDistance: 5
+  collisionAvoidWeight: 5
 --- !u!4 &1484776295
 Transform:
   m_ObjectHideFlags: 0

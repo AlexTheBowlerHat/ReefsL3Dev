@@ -60,18 +60,5 @@ public class BoidFlockInformation : MonoBehaviour
         Debug.Log("__COHESION HEADING__ OF " + gameObject.name + " IS: " + cohesionHeading);
         return cohesionHeading;
     }
-    void OnTriggerEnter(Collider other)
-    {
-        Debug.Log(other + "'s collider entered");
-        if (other.tag != "Boid") { return; }
-        nearBoids.Add(other.gameObject);
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        Debug.Log(other + "'s collider exited");
-        if (other.tag != "Boid") { return; }
-        nearBoids.Remove(other.gameObject);
-    }
 }
 

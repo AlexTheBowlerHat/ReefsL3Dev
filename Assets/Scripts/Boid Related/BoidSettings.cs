@@ -15,8 +15,10 @@ public class BoidSettings : MonoBehaviour
     public float cohesionWeight = 1f;
 
     [Range(0f, 10f)]
-    public float boidDectionRadius = 5f;
+    public float boidDectionRadius = 3f;
     public float avoidRadius = 1f;
 
+    public float collisionAvoidDistance = 5;
+    public float collisionAvoidWeight = 5f;
     //
 }

@@ -33,7 +33,7 @@ public class Boids : MonoBehaviour
         nearBoids = boidFlockInformation.nearBoids;
         boidVelocity = transform.forward * boidSettings.minBoidSpeed;
         boidBody = gameObject.GetComponent<Rigidbody>();
-        boidNeighbourCollider = gameObject.GetComponent<SphereCollider>();
+        boidNeighbourCollider = gameObject.GetComponentInChildren<SphereCollider>();
 
         //Typecast magic I think https://discussions.unity.com/t/c-changing-the-radius-of-the-sphere-collider/28045
         (boidNeighbourCollider as SphereCollider).radius = boidSettings.boidDectionRadius;
