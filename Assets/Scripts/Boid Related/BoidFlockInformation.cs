@@ -29,7 +29,7 @@ public class BoidFlockInformation : MonoBehaviour
         }
         seperationHeading /= nearBoids.Count; //Averaging
 
-        Debug.Log("__SEPERATION HEADING__ OF " + gameObject.name + " IS: " + seperationHeading);
+        //Debug.Log("__SEPERATION HEADING__ OF " + gameObject.name + " IS: " + seperationHeading);
         return seperationHeading;
     }
     //Alignment
@@ -43,7 +43,7 @@ public class BoidFlockInformation : MonoBehaviour
             alignHeading += boid.transform.forward;
         }
         alignHeading/= nearBoids.Count;
-        Debug.Log("__ALIGN HEADING__ OF " + gameObject.name + " IS: " + alignHeading);
+        //Debug.Log("__ALIGN HEADING__ OF " + gameObject.name + " IS: " + alignHeading);
         return alignHeading;
     }
     //Cohesion
@@ -57,7 +57,7 @@ public class BoidFlockInformation : MonoBehaviour
             cohesionHeading += boid.transform.position;
         }
         cohesionHeading /= nearBoids.Count;
-        Debug.Log("__COHESION HEADING__ OF " + gameObject.name + " IS: " + cohesionHeading);
+        //Debug.Log("__COHESION HEADING__ OF " + gameObject.name + " IS: " + cohesionHeading);
         return cohesionHeading;
     }
 }

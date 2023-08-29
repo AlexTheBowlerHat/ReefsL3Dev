@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
@@ -23,6 +24,11 @@ public class PlayerLogic : MonoBehaviour
     public List<GameObject> CloseInteractObjects;
     float rayCastMaxDist = 10f;
     [SerializeField] private DialogueHandler dialogueHandler;
+    InputAction mouseInformation;
+
+    bool cameraMoveCancelled = false;
+    [SerializeField]
+    float cameraSensitivity = 2f;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +38,7 @@ public class PlayerLogic : MonoBehaviour
         playerCollider = GetComponent<Collider>();
         playerInput.actions.FindActionMap("UnderWater").Disable();
         playerInput.actions.FindActionMap("Interacting").Disable();
+        mouseInformation = playerInput.actions.FindAction("Mouse Information");
     }
 
     void FixedUpdate()
@@ -72,24 +79,6 @@ public class PlayerLogic : MonoBehaviour
             break;
         }
     }
-    /*
-    GameObject CloserIObjectCalculation(Vector3 rayPoint)
-    {
-        Debug.Log(CloseInteractObjects);
-        float baseMagnitude = (CloseInteractObjects[0].transform.position - rayPoint).magnitude;
-        GameObject closestGameObject = CloseInteractObjects[0];
-
-        foreach (GameObject closeInteractObject in CloseInteractObjects)
-        {
-            if ((closeInteractObject.transform.position - rayPoint).magnitude < baseMagnitude)
-            {
-                closestGameObject = closeInteractObject;
-            }
-        }
-        Debug.Log("Closest interaction object is " + closestGameObject.ToString());
-        return closestGameObject;
-    }
-    */
     void InteractionLogic(GameObject interactObject)
     {
         
@@ -110,15 +99,15 @@ public class PlayerLogic : MonoBehaviour
                 break;
         }
     }
-    public void ReadInputValue(InputAction.CallbackContext movementContextInformation)
+    public void ReadInputValue(InputAction.CallbackContext inputContextInformation)
     {
-        string actionTriggeredName = movementContextInformation.action.name;
-        //Debug.Log(movementContextInformation.action);
+        string actionTriggeredName = inputContextInformation.action.name;
+        //Debug.Log(inputContextInformation.action);
         switch (actionTriggeredName)
         {
             case "Base Movement":
                 //Debug.Log("movement");
-                Vector2 contextMovementVector2 = movementContextInformation.ReadValue<Vector2>();
+                Vector2 contextMovementVector2 = inputContextInformation.ReadValue<Vector2>();
                 movementVector = new Vector3(contextMovementVector2.x,0,contextMovementVector2.y);
 
                 //Debug.Log("Movement vector is: " + movementVector.ToString());
@@ -126,38 +115,34 @@ public class PlayerLogic : MonoBehaviour
                 break;
 
             case "Jump":
-                if (!movementContextInformation.performed) return;
+                if (!inputContextInformation.performed) return;
                 RaycastHit[] boxCastHits = JumpBoxCastCheck();
                 PlayerJump(boxCastHits);
                 break;
                 
             case "Swimming": 
                 if (!isUnderwater) return;
-                Vector3 contextMovementVector3 = movementContextInformation.ReadValue<Vector3>();
+                Vector3 contextMovementVector3 = inputContextInformation.ReadValue<Vector3>();
                 movementVector = contextMovementVector3;
 
                 MovePlayer();
                 break;
 
             case "Interact":
-                if (!movementContextInformation.performed) return;
-                Debug.Log("=====");
-                Debug.Log("case interact ");
+                if (!inputContextInformation.performed) return;
+                //Debug.Log("=====");
+                //Debug.Log("case interact ");
                 InteractionLogic(CloseInteractObjects[0]);
-                /*Vector3 rayDirection = Camera.main.transform.position - playerBody.transform.position;
+                break;
 
-                RaycastHit[] interactableObjectRayHits = Physics.RaycastAll(playerBody.transform.position,
-                    transform.forward, 
-                    maxDistance: (Camera.main.transform.position -  new Vector3(playerBody.transform.position.x, playerBody.transform.position.y, playerBody.transform.position.z + rayCastMaxDist)).magnitude,
-                    LayerMask.GetMask("InteractObjects"), //Layer of interactable objects
-                    QueryTriggerInteraction.Collide);
-
-                Debug.Log(interactableObjectRayHits[0]);
-                if (interactableObjectRayHits.Length <= 0) return;
-                Debug.Log("got to ray hit");
-               
-
-                CloserIObjectCalculation(interactableObjectRayHits[0].point);*/
+            case "Camera Control":
+                if (inputContextInformation.canceled)
+                {
+                    cameraMoveCancelled = true;
+                }
+                if (!inputContextInformation.performed) { return; }
+                cameraMoveCancelled = false;
+                StartCoroutine(MoveCamera());
                 break;
 
             default:
@@ -166,6 +151,20 @@ public class PlayerLogic : MonoBehaviour
         }
     }
    
+    IEnumerator MoveCamera()
+    {
+        while (!cameraMoveCancelled)
+        {
+            Vector2 mouseDelta = mouseInformation.ReadValue<Vector2>();
+            Debug.Log(mouseDelta);
+            Vector2 cameraChange = mouseDelta * cameraSensitivity;
+
+            Camera.current.transform.eulerAngles += new Vector3(cameraChange.x,cameraChange.y,0);
+            yield return new WaitForSeconds(0.1f);
+        }
+        yield break;
+
+    }
     void MovePlayer()
     {
         if (movementVector == Vector3.zero) return;

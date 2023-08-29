@@ -49,7 +49,7 @@ public class Boids : MonoBehaviour
     void UpdateBoidMovement()
     {
         boidAcceleration = Vector3.zero;
-        Debug.Log("before boid near check");
+        //Debug.Log("before boid near check");
 
         //__Flock rule calculations__
         if (nearBoids.Capacity > 0)
@@ -64,23 +64,23 @@ public class Boids : MonoBehaviour
             boidAcceleration += cohesionVector;
         }
 
-        Debug.Log("movement");
+        //Debug.Log("movement");
         //__Movement__  
         float boidSpeed;
         Vector3 direction;
         boidVelocity += boidAcceleration * Time.deltaTime;
-        Debug.Log("*VELOCITY IS* " + boidVelocity);
+        //Debug.Log("*VELOCITY IS* " + boidVelocity);
 
         boidSpeed = boidVelocity.magnitude;
         direction = boidVelocity/boidSpeed; //Normalising the vector
         boidSpeed = Mathf.Clamp(boidSpeed, boidSettings.minBoidSpeed, boidSettings.maxBoidSpeed);
 
-        Debug.Log("*DIRECTION* and *SPEED* are: " + direction + boidSpeed);
+        //Debug.Log("*DIRECTION* and *SPEED* are: " + direction + boidSpeed);
         boidVelocity = direction * boidSpeed;
         gameObject.transform.position += (boidVelocity * Time.deltaTime);
         gameObject.transform.forward = direction; //Effectively rotates the boid
 
-        Debug.Log("===============");
+        //Debug.Log("===============");
     }
 
 
