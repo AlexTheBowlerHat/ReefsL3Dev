@@ -156,10 +156,10 @@ public class PlayerLogic : MonoBehaviour
         while (!cameraMoveCancelled)
         {
             Vector2 mouseDelta = mouseInformation.ReadValue<Vector2>();
-            Debug.Log(mouseDelta);
             Vector2 cameraChange = mouseDelta * cameraSensitivity;
 
-            Camera.current.transform.eulerAngles += new Vector3(cameraChange.x,cameraChange.y,0);
+            Debug.Log("Camera Change is: "+ cameraChange);
+            Camera.main.transform.eulerAngles += new Vector3(cameraChange.x,cameraChange.y,0);
             yield return new WaitForSeconds(0.1f);
         }
         yield break;
