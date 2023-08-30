@@ -64,11 +64,13 @@ public class DialogueHandler : MonoBehaviour
     }
     public IEnumerator ChangeDialogue(List<string> dialogueList)
     {
+        Debug.Log("Got to change dialogue");
         dialogueLabel.visible = true;
         //dialogueSplitter(dialogueList);
 
         foreach (var line in dialogueList) 
         {
+            Debug.Log(line);
             //Delay so that the next line isnt called until the first one is done
             while (addingText)
             {
