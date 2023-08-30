@@ -62,7 +62,7 @@ MonoBehaviour:
   active: 1
   temperature:
     m_OverrideState: 1
-    m_Value: -12
+    m_Value: 21
   tint:
     m_OverrideState: 1
     m_Value: -78
@@ -87,10 +87,10 @@ MonoBehaviour:
     m_Value: {x: 0.5, y: 0.5}
   intensity:
     m_OverrideState: 1
-    m_Value: 0.25
+    m_Value: 0.1
   smoothness:
     m_OverrideState: 1
-    m_Value: 0.4
+    m_Value: 0.404
   rounded:
     m_OverrideState: 0
     m_Value: 0
@@ -112,7 +112,7 @@ MonoBehaviour:
     m_Value: 1
   intensity:
     m_OverrideState: 1
-    m_Value: 0.25
+    m_Value: 0
   response:
     m_OverrideState: 1
     m_Value: 0.864
@@ -155,7 +155,7 @@ MonoBehaviour:
     m_Value: 5.3
   focalLength:
     m_OverrideState: 1
-    m_Value: 51
+    m_Value: 35
   bladeCount:
     m_OverrideState: 1
     m_Value: 8
@@ -229,7 +229,7 @@ MonoBehaviour:
     m_Value: 0
   greenOutGreenIn:
     m_OverrideState: 1
-    m_Value: 57
+    m_Value: 50
   greenOutBlueIn:
     m_OverrideState: 0
     m_Value: 0
@@ -257,10 +257,10 @@ MonoBehaviour:
   active: 1
   lift:
     m_OverrideState: 1
-    m_Value: {x: 0.7591952, y: 0.86377144, z: 1, w: 0}
+    m_Value: {x: 0.6046938, y: 0.7314919, z: 1, w: 0}
   gamma:
     m_OverrideState: 1
-    m_Value: {x: 0.343697, y: 0.71106046, z: 1, w: 0}
+    m_Value: {x: 0.28116757, y: 0.79531384, z: 1, w: 0}
   gain:
     m_OverrideState: 1
     m_Value: {x: 0.39567703, y: 0.6749181, z: 1, w: 0}

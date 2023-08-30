@@ -66,11 +66,12 @@ public class DialogueHandler : MonoBehaviour
     {
         Debug.Log("Got to change dialogue");
         dialogueLabel.visible = true;
+        dialogueLabel.style.opacity = 100;
         //dialogueSplitter(dialogueList);
 
         foreach (var line in dialogueList) 
         {
-            Debug.Log(line);
+            Debug.Log("Line is: " + line);
             //Delay so that the next line isnt called until the first one is done
             while (addingText)
             {
@@ -78,6 +79,10 @@ public class DialogueHandler : MonoBehaviour
             }
             StartCoroutine(TextTypingEffect(line));
         }
+        while (addingText)
+            {
+                yield return new WaitForSeconds(0.2f);
+            }
         dialogueLabel.visible = false;
         yield break;
 

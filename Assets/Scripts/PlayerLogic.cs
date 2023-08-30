@@ -19,31 +19,31 @@ public class PlayerLogic : MonoBehaviour
     public int walkSpeed;
     public int jumpForce;
     int boxCastLayerMask = 3;
-
-    public GameObject floor;
+    float gravityMultiplier = 2f;
     public List<GameObject> CloseInteractObjects;
     float rayCastMaxDist = 10f;
     [SerializeField] private DialogueHandler dialogueHandler;
-    InputAction mouseInformation;
+    //InputAction mouseInformation;
 
-    bool cameraMoveCancelled = false;
-    [SerializeField]
-    float cameraSensitivity = 2f;
+    // bool cameraMoveCancelled = false;
+    //[SerializeField]
+    //float cameraSensitivity = 2f;
 
     // Start is called before the first frame update
     void Start()
     {
+        Physics.gravity *= gravityMultiplier;
         playerBody = gameObject.GetComponent<Rigidbody>();
         playerInput = GetComponent<PlayerInput>();
         playerCollider = GetComponent<Collider>();
         playerInput.actions.FindActionMap("UnderWater").Disable();
         playerInput.actions.FindActionMap("Interacting").Disable();
-        mouseInformation = playerInput.actions.FindAction("Mouse Information");
+        //mouseInformation = playerInput.actions.FindAction("Mouse Information");
     }
 
     void FixedUpdate()
     {
-        //playerBody.AddForce(Physics.gravity,ForceMode.Acceleration);
+        //playerBody.AddForce(Physics.gravity * gravityMultiplier,ForceMode.Acceleration);
         MovePlayer();
     }
 
@@ -77,26 +77,6 @@ public class PlayerLogic : MonoBehaviour
             Debug.Log("ground woo");
             playerBody.AddForce(transform.up * jumpForce, ForceMode.VelocityChange);
             break;
-        }
-    }
-    void InteractionLogic(GameObject interactObject)
-    {
-        
-        switch (interactObject.GetComponent<InteractableObject>().interactableObjectType)
-        {
-            case "Dialogue":
-                Debug.Log("dialogue case");
-                StartCoroutine(dialogueHandler.ChangeDialogue(CloseInteractObjects[0].GetComponent<InteractableObject>().dialogue));
-                playerInput.actions.FindActionMap("Interacting").Disable();
-                break;
-
-            case "Pickup":
-                Debug.Log("pickup case");
-                break;
-
-            default:
-                Debug.LogWarning("default interact case");
-                break;
         }
     }
     public void ReadInputValue(InputAction.CallbackContext inputContextInformation)
@@ -136,6 +116,7 @@ public class PlayerLogic : MonoBehaviour
                 break;
 
             case "Camera Control":
+                /*
                 if (inputContextInformation.canceled)
                 {
                     cameraMoveCancelled = true;
@@ -144,13 +125,34 @@ public class PlayerLogic : MonoBehaviour
                 cameraMoveCancelled = false;
                 StartCoroutine(MoveCamera());
                 break;
+                */
 
             default:
                 Debug.Log("Default case");
                 break;
         }
     }
-   
+    void InteractionLogic(GameObject interactObject)
+    {
+        
+        switch (interactObject.GetComponent<InteractableObject>().interactableObjectType)
+        {
+            case "Dialogue":
+                Debug.Log("dialogue case");
+                StartCoroutine(dialogueHandler.ChangeDialogue(CloseInteractObjects[0].GetComponent<InteractableObject>().dialogue));
+                playerInput.actions.FindActionMap("Interacting").Disable();
+                break;
+
+            case "Pickup":
+                Debug.Log("pickup case");
+                break;
+
+            default:
+                Debug.LogWarning("default interact case");
+                break;
+        }
+    }
+    /*
     IEnumerator MoveCamera()
     {
         while (!cameraMoveCancelled)
@@ -165,11 +167,18 @@ public class PlayerLogic : MonoBehaviour
         yield break;
 
     }
+    */
+    
     void MovePlayer()
     {
         if (movementVector == Vector3.zero) return;
         //Debug.Log(movementVector);
-        playerDirection = movementVector * walkSpeed * Time.fixedDeltaTime;
+        //Dot product mess from: https://forum.unity.com/threads/how-do-i-get-a-vector-in-relation-to-another-vector.105723/
+        float dotProduct = Vector3.Dot(playerDirection,transform.forward);
+        Vector3 _playerDirection = (playerDirection + new Vector3(dotProduct,dotProduct,dotProduct)) + transform.forward;
+
+        playerDirection = _playerDirection.normalized * walkSpeed * Time.fixedDeltaTime;
         playerBody.AddForce(playerDirection, ForceMode.VelocityChange);
+        transform.eulerAngles += new Vector3(0,movementVector.x,0);
     }
 }
