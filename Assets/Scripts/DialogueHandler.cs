@@ -9,13 +9,13 @@ public class DialogueHandler : MonoBehaviour
 {
     [SerializeField]
     private UIDocument DialogueUI;
-    UnityEngine.UIElements.Label dialogueLabel;
+    public UnityEngine.UIElements.Label dialogueLabel;
     Button dialogueButton;
-    [SerializeField] 
-    List<string> splitDialogue;
     bool addingText = false;
 
     bool continueTextAlong = false;
+    public PlayerLogic playerLogic;
+    Coroutine textTypingCoroutine;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,18 +29,36 @@ public class DialogueHandler : MonoBehaviour
         dialogueLabel.visible = false;
         dialogueLabel.text = "";
     }
-    void ContinueText()
+    public IEnumerator ChangeDialogue(List<string> dialogueList)
     {
-        continueTextAlong = true;
+        Debug.Log("Got to change dialogue");
+        dialogueLabel.visible = true;
         dialogueLabel.style.opacity = 100;
-        dialogueButton.SetEnabled(false);
-        dialogueButton.visible = false;
+        //dialogueSplitter(dialogueList);
+
+        foreach (var line in dialogueList)
+        {
+            Debug.Log("Line supplied is: " + line);
+            //Delay so that the next line isnt called until the first one is done
+            while (addingText)
+            {
+                yield return new WaitForSeconds(0.2f);
+            }
+            textTypingCoroutine = StartCoroutine(TextTypingEffect(line));
+        }
+        while (addingText)
+        {
+            yield return new WaitForSeconds(0.2f);
+        }
+        dialogueLabel.visible = false;
+        yield break;
+
     }
     IEnumerator TextTypingEffect(string dialogue)
     {
         addingText = true;
 
-        Debug.Log("Dialogue is: " + dialogue);
+        Debug.Log("Dialogue being displayed is: " + dialogue);
         //Typing effect
         foreach (char character in dialogue)
         {
@@ -62,55 +80,25 @@ public class DialogueHandler : MonoBehaviour
         addingText = false;
         yield break;
     }
-    public IEnumerator ChangeDialogue(List<string> dialogueList)
+    void ContinueText()
     {
-        Debug.Log("Got to change dialogue");
-        dialogueLabel.visible = true;
+        continueTextAlong = true;
         dialogueLabel.style.opacity = 100;
-        //dialogueSplitter(dialogueList);
-
-        foreach (var line in dialogueList) 
-        {
-            Debug.Log("Line is: " + line);
-            //Delay so that the next line isnt called until the first one is done
-            while (addingText)
-            {
-                yield return new WaitForSeconds(0.2f);
-            }
-            StartCoroutine(TextTypingEffect(line));
-        }
-        while (addingText)
-            {
-                yield return new WaitForSeconds(0.2f);
-            }
+        dialogueButton.SetEnabled(false);
+        dialogueButton.visible = false;
+    }
+    public void TextCancel()
+    {
+        //Resets dialogue UI components
+        playerLogic.StopCoroutine(playerLogic.dialogueCoroutine);
+        StopCoroutine(textTypingCoroutine);
+        continueTextAlong = false;
+        addingText = false;
+        dialogueLabel.style.opacity = 0;
         dialogueLabel.visible = false;
-        yield break;
-
+        dialogueButton.visible = false;
+        dialogueLabel.text = "";
+        dialogueButton.SetEnabled(false);
     }
-    /*
-    void dialogueSplitter(string dialogueToBeSplit)
-    {
-        string[] sentenceSplitDialogue = Regex.Split(dialogueToBeSplit, @"(?<=[.])");
-
-        foreach (string sentence in sentenceSplitDialogue)
-        {
-            Debug.Log("Sentence in splitter is: " + sentence);
-            splitDialogue.Add(sentence);
-        }
-
-    }
-    */
-    /*
-    //I counted, the rough length of a line in the text box is 135
-    void LongStringSplitter(string sentence)
-    {
-       
-
-        foreach (string stringsplitLongSentence in splitLongSentenceArray)
-        {
-            Debug.Log("Long string bit split is: " + stringsplitLongSentence);
-            splitDialogue.Add(stringsplitLongSentence);
-        }
-    }
-    */
+    
 }

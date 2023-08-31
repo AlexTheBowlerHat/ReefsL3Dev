@@ -25,6 +25,7 @@ public class PlayerLogic : MonoBehaviour
     public List<GameObject> CloseInteractObjects;
 
     [SerializeField] private DialogueHandler dialogueHandler;
+    public Coroutine dialogueCoroutine;
     //InputAction mouseInformation;
 
     // bool cameraMoveCancelled = false;
@@ -117,18 +118,6 @@ public class PlayerLogic : MonoBehaviour
                 InteractionLogic(CloseInteractObjects[0]);
                 break;
 
-            case "Camera Control":
-                /*
-                if (inputContextInformation.canceled)
-                {
-                    cameraMoveCancelled = true;
-                }
-                if (!inputContextInformation.performed) { return; }
-                cameraMoveCancelled = false;
-                StartCoroutine(MoveCamera());
-                break;
-                */
-
             default:
                 Debug.Log("Default case");
                 break;
@@ -141,7 +130,7 @@ public class PlayerLogic : MonoBehaviour
         {
             case "Dialogue":
                 Debug.Log("dialogue case");
-                StartCoroutine(dialogueHandler.ChangeDialogue(CloseInteractObjects[0].GetComponent<InteractableObject>().dialogue));
+                dialogueCoroutine = StartCoroutine(dialogueHandler.ChangeDialogue(CloseInteractObjects[0].GetComponent<InteractableObject>().dialogue));
                 playerInput.actions.FindActionMap("Interacting").Disable();
                 break;
 

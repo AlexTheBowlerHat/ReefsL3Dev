@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1609,7 +1609,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 670870056}
-  m_LocalRotation: {x: 0.2657965, y: 0.000000016587457, z: -0.0000000045733977, w: 0.9640292}
+  m_LocalRotation: {x: 0.2657965, y: -0.00000001658745, z: 0.0000000045733954, w: 0.9640292}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2829,13 +2829,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogue:
-  - Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-  - 'Etiam maximus massa sit amet elit tempus, id cursus risus hendrerit. '
-  - Suspendisse potenti.
-  - Fusce posuere varius ex in semper.
-  - Phasellus urna erat, posuere non bibendum in, tempus eu mauris.
+  - This is dialogue line 1.
+  - This is dialogue line 2.
+  - This is dialogue line 3.
+  - This is dialogue line 4.
+  - This is dialogue line 5.
   playerLogic: {fileID: 2144208787}
   interactableObjectType: Dialogue
+  dialogueHandler: {fileID: 1449060471}
 --- !u!1 &1401774234
 GameObject:
   m_ObjectHideFlags: 3
@@ -3230,7 +3231,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DialogueUI: {fileID: 1449060469}
-  splitDialogue: []
+  playerLogic: {fileID: 2144208787}
 --- !u!1 &1484776293
 GameObject:
   m_ObjectHideFlags: 0
@@ -4006,7 +4007,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1920292772}
-  m_LocalRotation: {x: 0.28324166, y: -5.1835816e-15, z: 1.894455e-15, w: 0.95904857}
+  m_LocalRotation: {x: 0.28324166, y: -6.6689614e-15, z: 2.1306512e-15, w: 0.95904857}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

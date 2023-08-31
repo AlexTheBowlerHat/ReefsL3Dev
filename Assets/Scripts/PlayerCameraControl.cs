@@ -56,7 +56,7 @@ public class PlayerCameraControl : MonoBehaviour
     }
     public void ControlCamera(InputAction.CallbackContext callbackContext)
     {
-        Debug.Log("Camera Control Action name was: " + callbackContext.action.name);
+        //Debug.Log("Camera Control Action name was: " + callbackContext.action.name);
         switch (callbackContext.action.name)
         {
             case "Mouse Move":

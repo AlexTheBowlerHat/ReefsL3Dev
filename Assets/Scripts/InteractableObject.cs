@@ -9,6 +9,7 @@ public class InteractableObject : MonoBehaviour
     public List<string> dialogue;
     public PlayerLogic playerLogic;
     public string interactableObjectType;
+    public DialogueHandler dialogueHandler;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -24,8 +25,8 @@ public class InteractableObject : MonoBehaviour
     {
         Debug.Log("Trigger Exited");
         if (other.gameObject != playerLogic.gameObject) return;
-        //remove object from array
         playerLogic.playerInput.actions.FindActionMap("Interacting").Disable();
+        dialogueHandler.TextCancel();
         if (!playerLogic.CloseInteractObjects.Find(x => gameObject)) return;
         playerLogic.CloseInteractObjects.Remove(gameObject);
     }
