@@ -174,10 +174,12 @@ public class PlayerLogic : MonoBehaviour
         if (movementVector == Vector3.zero) return;
         //Debug.Log(movementVector);
         //Dot product mess from: https://forum.unity.com/threads/how-do-i-get-a-vector-in-relation-to-another-vector.105723/
-        float dotProduct = Vector3.Dot(playerDirection,transform.forward);
-        Vector3 _playerDirection = (playerDirection + new Vector3(dotProduct,dotProduct,dotProduct)) + transform.forward;
+        //float dotProduct = Vector3.Dot(playerDirection,transform.forward);
+        float angleToVector = Vector3.Angle(transform.forward, Vector3.forward);
 
-        playerDirection = _playerDirection.normalized * walkSpeed * Time.fixedDeltaTime;
+        //Vector3 _playerDirection = new Vector3(Mathf.Cos(angleToVector), 0, Mathf.Sin(angleToVector) ); 
+
+        playerDirection = movementVector * walkSpeed * Time.fixedDeltaTime;
         playerBody.AddForce(playerDirection, ForceMode.VelocityChange);
         transform.eulerAngles += new Vector3(0,movementVector.x,0);
     }
