@@ -22,24 +22,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "Mouse Information",
-                    "type": "Value",
-                    "id": "f3b8f4b1-d24b-424a-a6d5-c0f3db810a04",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "Camera Control",
-                    "type": "Button",
-                    "id": "e3829846-f5a2-4eec-b13a-7f567e76f265",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -106,28 +88,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "32192810-2f22-45cd-9c9d-e3a3002677c1",
-                    "path": "<Mouse>/delta",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Mouse Information",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "7c39bdd5-7ec2-4a4d-a7d3-dd4628a88b5a",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "Press(pressPoint=0.1)",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Camera Control",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -250,6 +210,54 @@
                     "processors": "",
                     "groups": "",
                     "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Camera Control",
+            "id": "583e5580-9f29-4ca6-898b-76ece9955032",
+            "actions": [
+                {
+                    "name": "MouseLookXY",
+                    "type": "PassThrough",
+                    "id": "a48522e3-80dd-46af-a7a2-97f371c874d5",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Mouse Zoom",
+                    "type": "PassThrough",
+                    "id": "69d6f223-5aae-4b77-8577-cf033d779f52",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "02f5a1cb-9724-4483-acf1-ed522b74f8d9",
+                    "path": "<Pointer>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MouseLookXY",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "87ad3518-bb9d-4a30-812c-b4b34bd5332f",
+                    "path": "<Mouse>/scroll/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Mouse Zoom",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -11,17 +11,22 @@ using UnityEngine.InputSystem;
 public class PlayerLogic : MonoBehaviour
 {
     [SerializeField] Vector3 movementVector;
-    [SerializeField] Vector3 playerDirection;
+    [SerializeField] float angleToMoveVector;
+    [SerializeField] Vector3 playerVelocity;
+    float rotationSpeed = 125f;
+    public int walkSpeed;
+    public int jumpForce;
+    float gravityMultiplier = 2f;
+        
+    int boxCastLayerMask = 3;
+    float rayCastMaxDist = 10f;
     [SerializeField] Rigidbody playerBody;
     public PlayerInput playerInput;
     [SerializeField] Collider playerCollider;
     public bool isUnderwater;
-    public int walkSpeed;
-    public int jumpForce;
-    int boxCastLayerMask = 3;
-    float gravityMultiplier = 2f;
+
     public List<GameObject> CloseInteractObjects;
-    float rayCastMaxDist = 10f;
+
     [SerializeField] private DialogueHandler dialogueHandler;
     //InputAction mouseInformation;
 
@@ -173,14 +178,14 @@ public class PlayerLogic : MonoBehaviour
     {
         if (movementVector == Vector3.zero) return;
         //Debug.Log(movementVector);
-        //Dot product mess from: https://forum.unity.com/threads/how-do-i-get-a-vector-in-relation-to-another-vector.105723/
-        //float dotProduct = Vector3.Dot(playerDirection,transform.forward);
-        float angleToVector = Vector3.Angle(transform.forward, Vector3.forward);
 
-        //Vector3 _playerDirection = new Vector3(Mathf.Cos(angleToVector), 0, Mathf.Sin(angleToVector) ); 
+        Vector3 playerDirection = (transform.forward * movementVector.z) + new Vector3(0,movementVector.y,0); 
+        //transform.Rotate(Vector3.up * movementVector.x * (rotationSpeed));
+        transform.rotation = Quaternion.Euler(0,transform.eulerAngles.y + (movementVector.x * rotationSpeed * Time.deltaTime),0);
 
-        playerDirection = movementVector * walkSpeed * Time.fixedDeltaTime;
-        playerBody.AddForce(playerDirection, ForceMode.VelocityChange);
-        transform.eulerAngles += new Vector3(0,movementVector.x,0);
+        playerVelocity = playerDirection * walkSpeed * Time.fixedDeltaTime;
+        playerBody.AddForce(playerVelocity, ForceMode.VelocityChange);
+
+        
     }
 }
