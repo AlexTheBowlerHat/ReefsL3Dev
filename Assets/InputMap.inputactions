@@ -236,6 +236,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Mouse Move",
+                    "type": "Button",
+                    "id": "69af0349-7772-4d70-84c6-5f3371c58a2d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -258,6 +267,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Mouse Zoom",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "19c12f28-f8d9-4767-83e9-36c2797b25fd",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Mouse Move",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
