@@ -76,17 +76,30 @@ public class WaterPlayerDetection : MonoBehaviour
         }
         //Debug.Log("oog, cam and player under");
         //Control change
+        PlayerInWater();
 
+        yield break;
+        
+    }
+    void PlayerInWater()
+    {
         playerInput.actions.FindActionMap("Player").Disable();
         playerInput.actions.FindActionMap("UnderWater").Enable();
         playerLogic.isUnderwater = true;
         playerRigidBody.velocity = Vector3.zero;
         playerRigidBody.useGravity = false;
         
-        yield break;
-        
     }
+    public void PlayerOutOfWater()
+    {
+        playerTouchingWater = false;
+        playerInput.actions.FindActionMap("Player").Enable();
+        playerInput.actions.FindActionMap("UnderWater").Disable();
 
+        playerRigidBody.useGravity = true;
+        waterVolume.enabled = false;
+        playerLogic.isUnderwater = false;
+    }
     private void OnTriggerEnter (Collider otherCollider)
     {
         if (otherCollider != playerCollider || playerCentre.transform.position.y < playerPositionToCheckAgainst) return;
@@ -100,13 +113,6 @@ public class WaterPlayerDetection : MonoBehaviour
         if (otherCollider != playerCollider || playerCentre.transform.position.y < oceanPlaneTransform.position.y) return;
         //Debug.Log("player properly above the water");
         //StartCoroutine(PlayerAndPlayerCameraPositionCheck(-10f, 0f));
-
-        playerTouchingWater = false;
-        playerInput.actions.FindActionMap("Player").Enable();
-        playerInput.actions.FindActionMap("UnderWater").Disable();
-
-        playerRigidBody.useGravity = true;
-        waterVolume.enabled = false;
-        playerLogic.isUnderwater = false;
+        PlayerOutOfWater();
     }
 }

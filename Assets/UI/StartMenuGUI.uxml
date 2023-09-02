@@ -1,0 +1,14 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/styles.uss?fileID=7433441132597879392&amp;guid=a953254dc1557004ebace6a8eb919860&amp;type=3#styles" />
+    <ui:VisualElement name="Background" class="background-style" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0);">
+        <ui:VisualElement name="Left" class="BG-organiser-Column-Style" style="flex-grow: 0; width: 33%; height: 100%;">
+            <ui:Label tabindex="-1" text="Reef-Fresh" display-tooltip-when-elided="true" style="width: 100%; padding-left: 10%; -unity-font: url(&apos;project://database/Assets/UI/Fonts/LemonJellyPersonalUse-dEqR.ttf?fileID=12800000&amp;guid=9e06382113db4914a9ac686f4739f5a8&amp;type=3#LemonJellyPersonalUse-dEqR&apos;); -unity-font-definition: url(&apos;project://database/Assets/UI/Fonts/LemonJellyPersonalUse-dEqR%20SDF.asset?fileID=11400000&amp;guid=574ccd3c213a34d449e43f620b167a36&amp;type=2#LemonJellyPersonalUse-dEqR SDF&apos;); -unity-font-style: bold; font-size: 100px; color: rgb(0, 0, 0); text-shadow: 0 0 0 rgb(255, 255, 255); -unity-text-outline-color: rgb(255, 255, 255); -unity-text-outline-width: 2px;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Middle" class="BG-organiser-Column-Style" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); flex-shrink: 0;" />
+        <ui:VisualElement name="Right" class="BG-organiser-Column-Style" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0); width: 33%; height: 100%; flex-shrink: 0; flex-wrap: wrap; justify-content: flex-end; align-items: stretch;">
+            <ui:Button text="Play" display-tooltip-when-elided="true" name="Play" class="button-title-screen" />
+            <ui:Button text="Credits" display-tooltip-when-elided="true" name="Credits" class="button-title-screen" style="margin-bottom: 10%; margin-top: 10%;" />
+            <ui:Button text="Quit" display-tooltip-when-elided="true" name="Quit" class="button-title-screen" style="margin-bottom: 10%;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

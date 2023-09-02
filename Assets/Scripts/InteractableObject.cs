@@ -17,7 +17,7 @@ public class InteractableObject : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Trigger entered");
+        Debug.Log(gameObject.name + "'s Trigger entered");
         if (other.gameObject != playerLogic.gameObject) return;
         playerLogic.playerInput.actions.FindActionMap("Interacting").Enable();
         if (playerLogic.CloseInteractObjects.Find(x => gameObject)) return;
@@ -27,7 +27,7 @@ public class InteractableObject : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log("Trigger Exited");
+        Debug.Log(gameObject.name + "'s Trigger Exited");
         if (other.gameObject != playerLogic.gameObject) return;
         playerLogic.playerInput.actions.FindActionMap("Interacting").Disable();
         if (!playerLogic.CloseInteractObjects.Find(x => gameObject)) return;
