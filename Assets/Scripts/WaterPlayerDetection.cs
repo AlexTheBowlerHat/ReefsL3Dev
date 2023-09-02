@@ -28,10 +28,18 @@ public class WaterPlayerDetection : MonoBehaviour
 
     [SerializeField]
     GameObject playerCentre;
+    AudioSource backgroundMusicReference;
+    AudioLowPassFilter lowPassFilter;
+    float lowPassCutOffFrequency = 1000;
 
     // Start is called before the first frame update
     void Start()
     {
+        backgroundMusicReference = GameObject.FindGameObjectWithTag("SoundRelated").GetComponent<AudioSource>();
+        lowPassFilter = backgroundMusicReference.gameObject.GetComponent<AudioLowPassFilter>();
+        lowPassFilter.enabled = false;
+        lowPassFilter.cutoffFrequency = lowPassCutOffFrequency;
+
         sceneCamera = Camera.main;
         playerCollider = player.GetComponent<Collider>();
         playerTransform = player.transform;
@@ -48,10 +56,12 @@ public class WaterPlayerDetection : MonoBehaviour
         if (sceneCamera.transform.position.y > camPosToCheckAgainst) 
         {
             waterVolume.enabled = false;
+            lowPassFilter.enabled = false;
         }
         else 
         {
             waterVolume.enabled = true;
+            lowPassFilter.enabled = true;
         }
     }
 
@@ -64,7 +74,7 @@ public class WaterPlayerDetection : MonoBehaviour
             if ( playerCentre.transform.position.y < playerPositionToCheckAgainst) break;
             yield return new WaitForSeconds(loopDelay);
         }
-        Debug.Log("oog, cam and player under");
+        //Debug.Log("oog, cam and player under");
         //Control change
 
         playerInput.actions.FindActionMap("Player").Disable();
@@ -73,7 +83,6 @@ public class WaterPlayerDetection : MonoBehaviour
         playerRigidBody.velocity = Vector3.zero;
         playerRigidBody.useGravity = false;
         
- 
         yield break;
         
     }
@@ -97,9 +106,7 @@ public class WaterPlayerDetection : MonoBehaviour
         playerInput.actions.FindActionMap("UnderWater").Disable();
 
         playerRigidBody.useGravity = true;
-
         waterVolume.enabled = false;
-        
         playerLogic.isUnderwater = false;
     }
 }

@@ -8,8 +8,8 @@ public class PlayerCameraControl : MonoBehaviour
 {
     public CinemachineFreeLook freeLookCamera;
     public PlayerInput playerInput;
-    float xSpeed = 200f;
-    float ySpeed = 1f;
+    public float xSpeed = 200f;
+    public float ySpeed = 1f;
     CursorLockMode cachedCursorLockState; 
     bool screenFocused;
 

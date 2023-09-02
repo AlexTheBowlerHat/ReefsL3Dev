@@ -10,6 +10,10 @@ public class InteractableObject : MonoBehaviour
     public PlayerLogic playerLogic;
     public string interactableObjectType;
     public DialogueHandler dialogueHandler;
+    public string interactObjectName;
+
+    public Vector3 cameraPosition;
+    public Vector3 cameraRotation;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -26,7 +30,6 @@ public class InteractableObject : MonoBehaviour
         Debug.Log("Trigger Exited");
         if (other.gameObject != playerLogic.gameObject) return;
         playerLogic.playerInput.actions.FindActionMap("Interacting").Disable();
-        dialogueHandler.TextCancel();
         if (!playerLogic.CloseInteractObjects.Find(x => gameObject)) return;
         playerLogic.CloseInteractObjects.Remove(gameObject);
     }

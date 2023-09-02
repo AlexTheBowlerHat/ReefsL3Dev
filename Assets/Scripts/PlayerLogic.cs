@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class PlayerLogic : MonoBehaviour
 {
@@ -76,8 +77,8 @@ public class PlayerLogic : MonoBehaviour
     {
         foreach (RaycastHit hit in boxCastHits)
         {
-            Debug.Log(hit.collider);
-            Debug.Log("ground woo");
+            //Debug.Log(hit.collider);
+            //Debug.Log("ground woo");
             playerBody.AddForce(transform.up * jumpForce, ForceMode.VelocityChange);
             break;
         }
@@ -129,13 +130,14 @@ public class PlayerLogic : MonoBehaviour
         switch (interactObject.GetComponent<InteractableObject>().interactableObjectType)
         {
             case "Dialogue":
-                Debug.Log("dialogue case");
-                dialogueCoroutine = StartCoroutine(dialogueHandler.ChangeDialogue(CloseInteractObjects[0].GetComponent<InteractableObject>().dialogue));
+                dialogueHandler.dialogueUI.rootVisualElement.style.display = DisplayStyle.Flex;
+                //Debug.Log("dialogue case");
+                dialogueCoroutine = StartCoroutine(dialogueHandler.ChangeDialogue(CloseInteractObjects[0].GetComponent<InteractableObject>().dialogue,interactObject));
                 playerInput.actions.FindActionMap("Interacting").Disable();
                 break;
 
             case "Pickup":
-                Debug.Log("pickup case");
+                //Debug.Log("pickup case");
                 break;
 
             default:
