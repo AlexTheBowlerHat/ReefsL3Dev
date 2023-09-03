@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class MeterHandling : MonoBehaviour
 {
     [SerializeField]
-    UIDocument defaultGUIDocument;
+    public UIDocument defaultGUIDocument;
     VisualElement rootUIElement;
     GameObject playerGameObject;
     PlayerLogic playerLogic;

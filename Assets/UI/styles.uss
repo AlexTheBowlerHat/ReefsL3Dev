@@ -42,4 +42,55 @@
     font-size: 30px;
     -unity-font-style: bold;
     padding-bottom: 2%;
+    translate: -5% 0;
+}
+
+.button-title-screen:hover {
+    width: 100%;
+    margin-top: 0;
+    border-left-color: rgb(184, 184, 184);
+    border-right-color: rgb(184, 184, 184);
+    border-top-color: rgb(184, 184, 184);
+    border-bottom-color: rgb(184, 184, 184);
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-left-width: 3px;
+    border-right-width: 3px;
+    border-top-width: 3px;
+    border-bottom-width: 3px;
+    background-color: rgb(183, 183, 183);
+    -unity-font: url('project://database/Assets/UI/Fonts/Lato/Lato-Bold.ttf?fileID=12800000&guid=5487004c4c6999942a651c1fbe78f902&type=3#Lato-Bold');
+    -unity-font-definition: url('project://database/Assets/UI/Fonts/Lato/Lato-Bold%20SDF.asset?fileID=11400000&guid=0443b6f863524a94fb40320e8c7b9c2d&type=2#Lato-Bold SDF');
+    color: rgb(0, 0, 0);
+    font-size: 30px;
+    -unity-font-style: bold;
+    padding-bottom: 2%;
+    translate: -5% 0;
+}
+
+.button-title-screen:active {
+    width: 100%;
+    margin-top: 0;
+    border-left-color: rgb(184, 184, 184);
+    border-right-color: rgb(184, 184, 184);
+    border-top-color: rgb(184, 184, 184);
+    border-bottom-color: rgb(184, 184, 184);
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-left-width: 3px;
+    border-right-width: 3px;
+    border-top-width: 3px;
+    border-bottom-width: 3px;
+    background-color: rgb(183, 183, 183);
+    -unity-font: url('project://database/Assets/UI/Fonts/Lato/Lato-Bold.ttf?fileID=12800000&guid=5487004c4c6999942a651c1fbe78f902&type=3#Lato-Bold');
+    -unity-font-definition: url('project://database/Assets/UI/Fonts/Lato/Lato-Bold%20SDF.asset?fileID=11400000&guid=0443b6f863524a94fb40320e8c7b9c2d&type=2#Lato-Bold SDF');
+    color: rgb(255, 255, 255);
+    font-size: 30px;
+    -unity-font-style: bold;
+    padding-bottom: 2%;
+    translate: -5% 0;
 }

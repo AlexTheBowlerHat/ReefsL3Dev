@@ -18,7 +18,7 @@ public class BoidSettings : MonoBehaviour
     public float boidDectionRadius = 3f;
     public float avoidRadius = 1f;
 
-    public float collisionAvoidDistance = 5;
-    public float collisionAvoidWeight = 5f;
+    public float homeWeight = 3f;
+    public GameObject boidHome;
     //
 }

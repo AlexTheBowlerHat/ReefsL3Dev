@@ -23,12 +23,14 @@ public class Boids : MonoBehaviour
     List<GameObject> nearBoids;
     [SerializeField]
     BoidSettings boidSettings;
+    GameObject boidHome;
 
     // Start is called before the first frame update
     void Start()
     {
         boidSettings = GameObject.Find("BoidSettingsHolder").GetComponent<BoidSettings>();
         boidFlockInformation = gameObject.GetComponent<BoidFlockInformation>();
+        boidHome = boidSettings.boidHome;
 
         nearBoids = boidFlockInformation.nearBoids;
         boidVelocity = transform.forward * boidSettings.minBoidSpeed;
@@ -46,9 +48,20 @@ public class Boids : MonoBehaviour
         UpdateBoidMovement();
         boidFlockInformation = gameObject.GetComponent<BoidFlockInformation>();
     }
+    void HomeSteer()
+    {
+        //Debug.Log("Boid script home is: " + boidHome.transform.position);
+        Vector3 targetOffset = boidHome.transform.position - gameObject.transform.position;
+        boidAcceleration = SteerTowards(targetOffset) * boidSettings.homeWeight;
+    }
+
     void UpdateBoidMovement()
     {
         boidAcceleration = Vector3.zero;
+        if (boidHome != null)
+        {
+            HomeSteer();
+        }
         //Debug.Log("before boid near check");
 
         //__Flock rule calculations__
@@ -78,6 +91,7 @@ public class Boids : MonoBehaviour
         //Debug.Log("*DIRECTION* and *SPEED* are: " + direction + boidSpeed);
         boidVelocity = direction * boidSpeed;
         gameObject.transform.position += (boidVelocity * Time.deltaTime);
+
         gameObject.transform.forward = direction; //Effectively rotates the boid
 
         //Debug.Log("===============");

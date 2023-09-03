@@ -13,14 +13,14 @@ public class BoidDetection : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other + "'s collider entered");
+        //Debug.Log(other + "'s collider entered");
         if (other.tag != "Boid") { return; }
         nearBoids.Add(other.gameObject);
     }
 
     void OnTriggerExit(Collider other)
     {
-        Debug.Log(other + "'s collider exited");
+        //Debug.Log(other + "'s collider exited");
         if (other.tag != "Boid") { return; }
         nearBoids.Remove(other.gameObject);
     }
