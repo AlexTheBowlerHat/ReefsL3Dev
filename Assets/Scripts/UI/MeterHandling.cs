@@ -41,6 +41,7 @@ public class MeterHandling : MonoBehaviour
     void DepthBarChange()
     {
         depthNumber.text = Mathf.Round(playerGameObject.transform.position.y).ToString() + "m";
+        //Sets bar height when player is above water to full
         if(Mathf.Sign(playerGameObject.transform.position.y) == 1) 
         {
             depthBar.style.height = Length.Percent(50);
