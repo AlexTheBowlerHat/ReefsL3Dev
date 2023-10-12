@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -605,7 +605,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 291646761}
-  m_LocalRotation: {x: 0.3006394, y: 0.000000016410379, z: -0.0000000051729154, w: 0.9537379}
+  m_LocalRotation: {x: 0.3006394, y: -0.000000016410379, z: 0.0000000051729154, w: 0.9537379}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1797,7 +1797,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 670870056}
-  m_LocalRotation: {x: 0.26579654, y: -0.000000016587446, z: 0.0000000045733946, w: 0.9640292}
+  m_LocalRotation: {x: 0.26579654, y: 0.000000016587459, z: -0.0000000045733977, w: 0.9640292}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4096,7 +4096,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1920292772}
-  m_LocalRotation: {x: 0.28324166, y: 0.000000030713224, z: -0.000000009070724, w: 0.95904857}
+  m_LocalRotation: {x: 0.28324163, y: -0.000000011241824, z: 0.0000000033201162, w: 0.95904857}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4605,6 +4605,7 @@ GameObject:
   - component: {fileID: 2144208786}
   - component: {fileID: 2144208787}
   - component: {fileID: 2144208788}
+  - component: {fileID: 2144208789}
   m_Layer: 3
   m_Name: Player Bean
   m_TagString: Player
@@ -4845,6 +4846,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 69af0349-7772-4d70-84c6-5f3371c58a2d
     m_ActionName: Camera Control/Mouse Move[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1f27476d-b5ab-4a30-bdf2-50e8ad1eb41e
+    m_ActionName: Interacting/Analyse[/Keyboard/f]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -4889,6 +4894,22 @@ MonoBehaviour:
   playerInput: {fileID: 2144208786}
   xSpeed: 200
   ySpeed: 1
+--- !u!114 &2144208789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2144208779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6fc6f5698af63a4c9e220f2eb74698b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  raycastDistance: 0
+  keyPresslength: 0
+  layerMaskLayer: 0
+  defaultGUIDocument: {fileID: 2016645824}
 --- !u!1001 &3660208583593255582
 PrefabInstance:
   m_ObjectHideFlags: 0

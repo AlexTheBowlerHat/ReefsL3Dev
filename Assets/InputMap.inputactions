@@ -199,6 +199,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Analyse",
+                    "type": "Button",
+                    "id": "1f27476d-b5ab-4a30-bdf2-50e8ad1eb41e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -210,6 +219,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9108dc63-b4ee-48ac-9883-c1acb81d82e6",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Analyse",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
