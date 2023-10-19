@@ -1,20 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.InputSystem;
 
 public class AnalyseFish : MonoBehaviour
 {
-    [SerializeField] float raycastDistance = 0f;
-    [SerializeField] float keyPresslength = 0f;
+    [SerializeField] float raycastDistance = 1000f;
+    //[SerializeField] float keyPresslength = 0f;
     [SerializeField] int layerMaskLayer = 0;
     GameObject playerGameObject;
     PlayerInput playerInput;
-
+    
     public UIDocument defaultGUIDocument;
     VisualElement rootUIElement;
+    RaycastHit analysisInfo;
 
+    string[] validAnalysisTargets = { "Clownfish", "Coral" };
     void DisableAnalysis()
     {
         playerInput.actions.FindAction("Analyse").Disable();
@@ -22,14 +25,14 @@ public class AnalyseFish : MonoBehaviour
     }
     void RayHitFishCheck()
     {
-        RaycastHit analysisInfo;
 
+        Ray mousePointRay = Camera.main.ScreenPointToRay(Input.mousePosition);
        //Guard clause ends method early if nothing hit with the ray
-       if (!Physics.Raycast(origin: gameObject.transform.position,
-            direction: Camera.main.transform.forward,
+       if (!Physics.Raycast(ray: mousePointRay,
             hitInfo: out analysisInfo,
             maxDistance: raycastDistance,
-            layerMask: layerMaskLayer))
+            layerMask: layerMaskLayer) 
+            || !validAnalysisTargets.Contains(analysisInfo.transform.tag))
         {
             DisableAnalysis();
             return;
@@ -39,6 +42,11 @@ public class AnalyseFish : MonoBehaviour
         playerInput.actions.FindAction("Analyse").Enable();
         //UI transparency change here
 
+    }
+
+    public void AnalysisUI()
+    {
+        Debug.Log("Analysis reach hit " + analysisInfo.transform.tag);
     }
 
     void Start()
